@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .nav-link.home {
+            font-weight: bold;
+            font-size: 25px;
+        }
+        .contact-form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        .contact-form h2 {
+            margin-bottom: 20px;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+       <!-- Navigation Bar -->
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link home" href="file:///C:/Users/Suraj%20Jagtap/Desktop/portfolio/index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="file:///C:/Users/Suraj%20Jagtap/Desktop/portfolio/index.html#toolset"></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Contact Form -->
+    <div class="contact-form">
+        <h2>Contact Me</h2>
+        <form action="https://formspree.io/f/xgvwovbq" method="post">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Your email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Your email address" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">SUBMIT</button>
+        </form>
+    </div>
+
+<!-- Footer -->
+<footer class="bg-orange text-white py-4" style="background-color: orange;">
+    <div class="container text-center">
+        <!-- Logos and Links -->
+        <div class="mb-3">
+            <a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank">
+                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/linkedin.png" alt="LinkedIn" class="img-fluid mx-2" style="width: 25px; height: 25px;">
+            </a>
+            <a href="https://github.com/Suraj149696" target="_blank">
+                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/github.png" alt="GitHub" class="img-fluid mx-2" style="width: 25px; height: 25px;">
+            </a>
+            <a href="https://raw.githubusercontent.com/Suraj215151/social-tools/main/Link1.webp" target="_blank">
+                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/Link1.webp" alt="Portfolio" class="img-fluid mx-2" style="width: 25px; height: 25px;">
+            </a>
+        </div>
+    </div>
+</footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
