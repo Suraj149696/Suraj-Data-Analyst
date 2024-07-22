@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Comprehensive Study of Capgemini Employee Reviews</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+        }
+        .container {
+            width: 100%; /* Use full width */
+            padding: 20px;
+        }
+        .custom-container {
+        margin-left: 2cm;
+        margin-right: 2cm;
+    }
+        .project-image {
+            float: left; /* Float the image to the left */
+            margin-right: 20px; /* Add margin for spacing */
+            max-width: 400px; /* Increase image width */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .project-description {
+            text-align: justify; /* Justify text for a neat appearance */
+        }
+        .section-title {
+            margin-bottom: 20px; /* Space between section title and content */
+        }
+        .tool-image {
+            max-width: 60px; /* Reduce the max-width for smaller logos */
+            height: auto;
+            margin: 10px; /* Add margin around images */
+        }
+        .steps-list, .why-steps-list {
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            list-style-type: disc; /* Use disc style for list items */
+        }
+        .challenges {
+            margin-top: 50px; /* Space above the challenges section */
+        }
+
+        .challenges ul {
+            list-style-type: disc; /* Bullet points style */
+            margin-left: 20px; /* Indentation of bullet points */
+        }
+        .result-image {
+            max-width: 100%; /* Ensure images are responsive */
+            height: auto;
+            margin-top: 20px; /* Add space above images */
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#about">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html#toolset">Tool Set</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container custom-container">
+      <!-- Project Overview -->
+<div class="section">
+    <h1 style="font-size: 25px; font-weight: bold; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 1cm;">A Comprehensive Study of Capgemini Employee Reviews</h1>
+    <img src="https://raw.githubusercontent.com/Suraj215151/project/main/Capgemini.jpg" alt="Capgemini Project" class="project-image" style="margin-bottom: 1cm;">
+    <div class="project-description">
+        <p>
+            This project aims to analyze Capgemini employee reviews to uncover trends and patterns in employee satisfaction. The objectives include identifying primary factors influencing satisfaction, developing an NLP model to extract keywords from reviews, and creating a recommendation system for tailored suggestions. Additionally, a multiclass sentiment classification model will be developed to categorize employee ratings as positive, negative, or neutral. By leveraging advanced data analysis and machine learning techniques, this project seeks to provide insights into employee sentiments and improve organizational strategies for enhancing employee satisfaction and engagement.
+        </p>
+    </div>
+</div>
+
+<!-- Additional Sections in One Row -->
+<section id="additional-sections" class="py-5 mt-5" style="margin-top: -1cm;">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <h3 style="font-size: 25px; font-weight: bold;">The Steps I Took</h3>
+                <ul class="steps-list">
+                    <li>Data Collection and Cleaning</li>
+                    <li>Exploratory Data Analysis (EDA)</li>
+                    <li>Natural Language Processing (NLP) Model Development</li>
+                    <li>Recommendation System Implementation</li>
+                    <li>Multiclass Sentiment Classification Model</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3 style="font-size: 25px; font-weight: bold;">Why I Took These Steps</h3>
+                <ul class="why-steps-list">
+                    <li>Ensured reliable data for analysis</li>
+                    <li>Identified key factors influencing satisfaction</li>
+                    <li>Extracted meaningful insights from feedback</li>
+                    <li>Enhanced employee experience and engagement</li>
+                    <li>Improved sentiment analysis accuracy</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3 style="font-size: 25px; font-weight: bold;">Tools I Used</h3>
+                <ul class="list-unstyled">
+                    <li>
+                        <img src="https://raw.githubusercontent.com/Suraj215151/tool/main/excel.png" alt="Excel" class="tool-image">
+                        Excel
+                    </li>
+                    <li>
+                        <img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Python.png" alt="Python" class="tool-image">
+                        Python
+                    </li>
+                    <li>
+                        <img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Power%20BI.png" alt="Power BI" class="tool-image">
+                        Power BI
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Challenges Section -->
+<section class="challenge ">
+    <div class="container">
+        <h3 class="font-weight-bold" style="font-size: 25px;">Challenges:</h3>
+        <ul>
+            <li><strong>Missing Values: </strong>Certain columns contain irreplaceable missing values, which may impact the model's accuracy and reliability.</li>
+            <li><strong>NLP Model Limitations:</strong>  NLP models may struggle with understanding context in employee reviews, affecting the accuracy of keyword extraction, sentiment analysis, and recommendations.</li>
+            <li><strong>Imbalanced Data: </strong>Data imbalance can negatively affect the performance of the sentiment analysis model. Techniques like oversampling or undersampling can introduce bias or lead to a loss of information.</li>
+            <li><strong>Generalization Issues: </strong>The multiclass sentiment classification model may struggle to generalize if the training data lacks diverse sentiments across various organizational contexts, which can impact its accuracy on new or unseen data.</li>
+        </ul>
+    </div>
+
+    </div>
+</section>
+
+
+<!-- Wonderful Visuals Section -->
+<section class="wonderful-visuals py-5" style="background-color: orange; padding-left: 3cm; padding-right: 3cm;">
+    <div class="container">
+        <h3 style="font-size: 25px; font-weight: bold;">Here are some of my wonderful visuals from this project:</h3>
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <h4 style="font-size: 20px; font-weight: bold;">Count Plot of ratings for different features</h4>
+                <img src="https://raw.githubusercontent.com/Suraj215151/project1/main/barplot1.png" alt="Count Plot of ratings for different features" class="img-fluid">
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4 style="font-size: 20px; font-weight: bold;">Donut Plot of Employees in department</h4>
+                <img src="https://raw.githubusercontent.com/Suraj215151/project1/main/piechart.png" alt="Donut Plot of Employees in department" class="img-fluid">
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4 style="font-size: 20px; font-weight: bold;">Correlation Heatmap</h4>
+                <img src="https://raw.githubusercontent.com/Suraj215151/project1/main/correlationplot.png" alt="Correlation Heatmap" class="img-fluid">
+            </div>
+            <div class="col-md-6 mb-4">
+                <h4 style="font-size: 20px; font-weight: bold;">Word Cloud for Likes and Dislikes</h4>
+                <img src="https://raw.githubusercontent.com/Suraj215151/project1/main/wordcloud.png" alt="Word Cloud for Likes and Dislikes" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Result Section -->
+<section id="result" class="py-5" style="background-color: rgb(0, 30, 49); color: white;">
+    <div class="container">
+        <h2 style="font-size: 30px; font-weight: bold;">Results</h2>
+        <div class="mt-4">
+            <h4 style="font-size: 20px; font-weight: bold;">1. Employee Satisfaction Factors</h4>
+            <p>Work-life balance, skill development, salary, benefits, job security, and career growth significantly contribute to employee satisfaction. Positive perceptions in these areas generally lead to higher job satisfaction.</p>
+        </div>
+        <div class="mt-4">
+            <h4 style="font-size: 20px; font-weight: bold;">2. Areas for Improvement</h4>
+            <p>Employees express satisfaction with work-life balance, job security, and career growth. However, neutral ratings for salary and benefits suggest these aspects may need enhancement or closer attention from the company.</p>
+        </div>
+        <div class="mt-4">
+            <h4 style="font-size: 20px; font-weight: bold;">3. Keyword Extraction</h4>
+            <p>By using Natural Language Processing (NLP) effectively extracts key insights from Capgemini employee reviews. By employing techniques like TF-IDF, we identify and prioritize relevant words and phrases, enhancing our understanding of the main themes and sentiments expressed. This approach significantly refines our analysis of employee feedback.</p>
+            <img src="https://raw.githubusercontent.com/Suraj215151/project1/main/keyword%20.png" alt="Keyword Extraction" class="result-image">
+        </div>
+        <div class="mt-4">
+            <h4 style="font-size: 20px; font-weight: bold;">4. Recommendation System</h4>
+            <p>The recommendation system for Capgemini employee reviews provides personalized suggestions based on specific departments and locations. By analyzing review patterns, the system offers tailored insights to enhance employee satisfaction and address departmental needs, ensuring more relevant and actionable recommendations for improvement.</p>
+            <img src="https://raw.githubusercontent.com/Suraj215151/project1/main/recomanndation.png" alt="Recommendation System" class="result-image">
+        </div>
+        <div class="mt-4">
+            <h4 style="font-size: 20px; font-weight: bold;">5. LSTM Model Performance</h4>
+            <p>The LSTM model achieved an accuracy of 79.05% in classifying Capgemini employee reviews, effectively distinguishing between positive, negative, and neutral sentiments. This high accuracy indicates the model's robustness in analyzing sentiment and suggests its reliability in providing meaningful insights into employee ratings.</p>
+            <img src="https://raw.githubusercontent.com/Suraj215151/project1/main/sentiment_analysis.jpg" alt="LSTM Model Performance" class="result-image">
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section id="resources" class="py-5">
+    <div class="container">
+        <h3 style="font-size: 25px; font-weight: bold; text-align: left;"></h3>
+        <div class="mt-4 d-flex justify-content-start">
+            <a href=https://www.kaggle.com/datasets/manishkr1754/capgemini-employee-reviews-dataset class="btn btn-primary btn-lg mr-3" target="_blank">Dataset Link</a>
+            <a href="https://github.com/Suraj149696/A-Comprehensive-Study-of-Capgemini-Employee-Reviews/blob/main/Capgemini%20Final%20Project.docx" class="btn btn-secondary btn-lg" download>Download Project Report</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-orange text-white py-4" style="background-color: orange;">
+    <div class="container text-center">
+        <!-- Logos and Links -->
+        <div class="mb-3">
+            <a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank">
+                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/linkedin.png" alt="LinkedIn" class="img-fluid mx-2" style="width: 25px; height: 25px;">
+            </a>
+            <a href="https://github.com/Suraj149696" target="_blank">
+                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/github.png" alt="GitHub" class="img-fluid mx-2" style="width: 25px; height: 25px;">
+            </a>
+            <a href="https://raw.githubusercontent.com/Suraj215151/social-tools/main/Link1.webp" target="_blank">
+                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/Link1.webp" alt="Portfolio" class="img-fluid mx-2" style="width: 25px; height: 25px;">
+            </a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
