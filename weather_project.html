@@ -138,11 +138,30 @@
 <!-- Challenges Section -->
 <section class="challenge bg-white px-5">
     <div class="container">
-        <h3 class="font-weight-bold" style="font-size: 25px;">Challenges:</h3>
-        <ul>
-            <li><strong>Memory Limitations:</strong> During the fitting of the SARIMA model, Python encountered a memory error due to insufficient available memory. This prevented the model from forecasting beyond a short time horizon of 48 hours, limiting the ability to project temperature trends over longer periods.</li>
-            <li><strong>Forecasting Limitations:</strong> While ARIMA successfully generated forecasts for the entire year, the sheer volume of forecasted temperature values exceeded practical reporting limits. As a result, only a subset of 24-day forecasts could be effectively included in the report.</li>
-            <li><strong>Reporting Constraints:</strong> The need to condense and present forecasted data within manageable limits posed a challenge. Balancing comprehensive model outputs with concise reporting required prioritizing key timeframes and findings to effectively convey insights from the forecasting exercise.</li>
+        <h3 class="font-weight-bold" style="font-size: 25px; margin-bottom: 20px;">
+            Challenges:
+        </h3>
+
+        <ul style="line-height: 2; padding-left: 20px;">
+            <li>
+                <strong>Data Preprocessing:</strong> Handling missing values, inconsistent timestamps, and preparing sequential time series data for LSTM model training required careful preprocessing and transformation.
+            </li>
+
+            <li>
+                <strong>Model Training Complexity:</strong> Training the LSTM model required proper tuning of hyperparameters such as sequence length, batch size, epochs, and learning rate to improve forecasting accuracy.
+            </li>
+
+            <li>
+                <strong>Forecast Accuracy:</strong> Weather data contains seasonal variations and sudden fluctuations, making it challenging for the model to consistently predict accurate future temperatures.
+            </li>
+
+            <li>
+                <strong>Computational Resources:</strong> Deep learning model training consumed significant processing time and memory, especially while working with large historical weather datasets.
+            </li>
+
+            <li>
+                <strong>Visualization & Interpretation:</strong> Presenting forecasted temperature trends and model performance in a clear and understandable way required effective data visualization techniques.
+            </li>
         </ul>
     </div>
 </section>
