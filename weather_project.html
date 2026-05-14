@@ -57,30 +57,159 @@
     </nav>
 
 <!-- Project Details Section -->
-<section id="project-details" class="py-5" style="background-color: rgb(255, 255, 255); padding-left: 3cm; padding-right: 3cm;">
-    <div class="container">
- <!-- Project Name -->
-<div class="row mb-4">
-    <div class="col-md-12">
-        <h2 style="font-size: 30px; font-weight: bold; border-bottom: 2px solid black; padding-bottom: 10px;">
-            Time Series and Machine Learning Approach for Weather Forecasting
-        </h2>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ===== PROJECT SECTION BACKGROUND ===== */
+#project-details {
+    position: relative;
+    background-color: white;
+    padding-left: 3cm;
+    padding-right: 3cm;
+    overflow: hidden;
+}
+
+/* Blurred background image (replaces static image) */
+#project-details::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("https://your-image-url.jpg") center/cover no-repeat;
+    filter: blur(10px);
+    transform: scale(1.1);
+    z-index: 0;
+}
+
+/* Dark overlay for readability */
+#project-details::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.7);
+    z-index: 0;
+}
+
+/* Keep content above background */
+#project-details .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Chart box styling */
+.chart-box {
+    background: rgba(255,255,255,0.85);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+</style>
+
+<!-- ================= PROJECT SECTION ================= -->
+<section id="project-details" class="py-5">
+
+<div class="container">
+
+    <!-- Project Title -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2 style="font-size: 30px; font-weight: bold; border-bottom: 2px solid black; padding-bottom: 10px;">
+                Time Series and Machine Learning Approach for Weather Forecasting
+            </h2>
+        </div>
     </div>
+
+    <!-- Image + Chart + Text -->
+    <div class="row">
+
+        <!-- LEFT: Live Chart replaces image -->
+        <div class="col-md-6">
+            <div class="chart-box">
+                <canvas id="tempChart"></canvas>
+            </div>
+        </div>
+
+        <!-- RIGHT: Description -->
+        <div class="col-md-6">
+            <p>
+                In this project, our goal is to analyze and forecast the temperature of Mumbai city using time series analysis and Deep Learning techniques. We use an LSTM (Long Short-Term Memory) model to study historical weather patterns and predict future temperature trends. The project involves collecting real-time weather data, preprocessing and transforming the dataset for sequential learning, and training the LSTM model to generate accurate temperature forecasts. By leveraging deep learning for time series forecasting, this project helps in understanding weather behavior and supports practical applications such as urban planning, agriculture, and day-to-day decision-making related to weather conditions in Mumbai.
+            </p>
+        </div>
+
+    </div>
+
 </div>
 
-     <!-- Image and Project Details -->
-<div class="row">
-    <div class="col-md-6">
-        <img src="https://raw.githubusercontent.com/Suraj215151/project/main/pune.jpg" alt="Weather Forecasting Project" class="img-fluid rounded">
-    </div>
-    <div class="col-md-6">
-        <p>
-            In this project, our goal is to analyze and forecast the temperature of Mumbai city using time series analysis and Deep Learning techniques. We use an LSTM (Long Short-Term Memory) model to study historical weather patterns and predict future temperature trends. The project involves collecting real-time weather data, preprocessing and transforming the dataset for sequential learning, and training the LSTM model to generate accurate temperature forecasts. By leveraging deep learning for time series forecasting, this project helps in understanding weather behavior and supports practical applications such as urban planning, agriculture, and day-to-day decision-making related to weather conditions in Mumbai.
-        </p>
-    </div>
-</div>
-</div>
 </section>
+
+<!-- ================= CHART SCRIPT ================= -->
+<script>
+async function loadForecastChart() {
+
+    const res = await fetch(
+        "https://raw.githubusercontent.com/Suraj149696/weather-Forecasting-pipeline-/main/data/Forecast/forecast.json"
+    );
+
+    const data = await res.json();
+
+    // Convert to 12-hour format
+    const labels = data.forecast.map(item => {
+        const dt = new Date(item.datetime);
+
+        return dt.toLocaleTimeString('en-IN', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    });
+
+    const temps = data.forecast.map(item => item.temperature_C);
+
+    const ctx = document.getElementById("tempChart").getContext("2d");
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Mumbai Temperature Forecast (°C)",
+                data: temps,
+                borderColor: "#007bff",
+                backgroundColor: "rgba(0,123,255,0.2)",
+                tension: 0.4,
+                pointRadius: 3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: "#000"
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: "#000" }
+                },
+                y: {
+                    ticks: { color: "#000" }
+                }
+            }
+        }
+    });
+}
+
+loadForecastChart();
+</script>
 
 
 
