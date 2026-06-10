@@ -1,241 +1,1082 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Analytics Dashboard for Employee Attrition Analysis</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            line-height: 1.6;
-            background-color: #f8f9fa;
-            color: #333;
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-        }
-        .container {
-            width: 100%; /* Use full width */
-            padding: 20px;
-        }
-        .custom-container {
-            margin-left: 2cm;
-            margin-right: 2cm;
-        }
-        .project-image {
-            float: left; /* Float the image to the left */
-            margin-right: 20px; /* Add margin for spacing */
-            max-width: 400px; /* Increase image width */
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .project-description {
-            text-align: justify; /* Justify text for a neat appearance */
-        }
-        .section-title {
-            margin-bottom: 20px; /* Space between section title and content */
-        }
-        .tool-image {
-            max-width: 60px; /* Reduce the max-width for smaller logos */
-            height: auto;
-            margin: 10px; /* Add margin around images */
-        }
-        .steps-list, .why-steps-list {
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-            list-style-type: disc; /* Use disc style for list items */
-        }
-        .challenges {
-            margin-top: 50px; /* Space above the challenges section */
-        }
-        .challenges ul {
-            list-style-type: disc; /* Bullet points style */
-            margin-left: 20px; /* Indentation of bullet points */
-        }
-        .result-image {
-            max-width: 100%; /* Ensure images are responsive */
-            height: auto;
-            margin-top: 20px; /* Add space above images */
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HR Analytics Dashboard – Suraj Jagtap</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:        #0c0b14;
+  --surface:   #131120;
+  --card:      #1a1728;
+  --border:    rgba(167,139,250,0.1);
+  --border-hv: rgba(167,139,250,0.28);
+  --text:      #eae8f4;
+  --muted:     #7b7499;
+  --accent:    #a78bfa;     /* violet */
+  --accent2:   #f472b6;     /* pink */
+  --accent3:   #34d399;     /* emerald */
+  --amber:     #fbbf24;
+  --red:       #f87171;
+  --radius:    14px;
+  --radius-sm: 8px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── ANIMATED BACKGROUND PARTICLES ── */
+.bg-orb {
+  position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
+  filter: blur(80px); opacity: 0.18;
+}
+.orb1 { width: 520px; height: 520px; background: #7c3aed; top: -120px; left: -140px; animation: drift1 18s ease-in-out infinite; }
+.orb2 { width: 400px; height: 400px; background: #db2777; top: 40vh; right: -100px; animation: drift2 22s ease-in-out infinite; }
+.orb3 { width: 300px; height: 300px; background: #059669; bottom: 10vh; left: 30%; animation: drift3 15s ease-in-out infinite; }
+@keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,60px)} }
+@keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-50px,40px)} }
+@keyframes drift3 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-40px)} }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(12,11,20,0.82);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-size: 13px; font-weight: 500; letter-spacing: .08em; color: var(--muted); }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 13px; font-weight: 500; padding: 8px 18px;
+  border-radius: 6px; background: var(--accent); color: #0c0b14;
+  text-decoration: none; transition: opacity .2s;
+}
+.nav-cta:hover { opacity: .85; }
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 24px 60px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 30%, rgba(124,58,237,0.13) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, transparent, transparent 47px, rgba(167,139,250,0.03) 48px),
+    repeating-linear-gradient(90deg, transparent, transparent 47px, rgba(167,139,250,0.03) 48px);
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--accent); background: rgba(167,139,250,0.1);
+  border: 1px solid rgba(167,139,250,0.25);
+  padding: 7px 16px; border-radius: 20px; margin-bottom: 30px;
+  animation: heroIn .7s ease both;
+}
+.pulse-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent3);
+  box-shadow: 0 0 0 0 rgba(52,211,153,0.5);
+  animation: pulseDot 2s infinite;
+}
+@keyframes pulseDot {
+  0% { box-shadow: 0 0 0 0 rgba(52,211,153,0.5); }
+  70% { box-shadow: 0 0 0 8px rgba(52,211,153,0); }
+  100% { box-shadow: 0 0 0 0 rgba(52,211,153,0); }
+}
+.hero-title {
+  font-size: clamp(38px, 6.5vw, 68px);
+  font-weight: 700; line-height: 1.08; letter-spacing: -.025em;
+  color: #fff; max-width: 780px;
+  animation: heroIn .7s .08s ease both;
+}
+.hero-title .v1 { color: var(--accent); }
+.hero-title .v2 {
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-desc {
+  margin-top: 22px; font-size: 17px; color: var(--muted);
+  max-width: 540px; margin-left: auto; margin-right: auto;
+  animation: heroIn .7s .16s ease both;
+}
+.hero-pills {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+  margin-top: 26px;
+  animation: heroIn .7s .24s ease both;
+}
+.pill {
+  font-size: 12px; padding: 5px 14px; border-radius: 20px;
+  border: 1px solid var(--border); color: var(--muted); background: var(--surface);
+}
+.hero-btns {
+  display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
+  margin-top: 38px;
+  animation: heroIn .7s .32s ease both;
+}
+.btn-main {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: var(--radius-sm);
+  background: var(--accent); color: #0c0b14;
+  font-weight: 600; font-size: 14px; text-decoration: none;
+  transition: transform .2s, opacity .2s;
+}
+.btn-main:hover { transform: translateY(-2px); opacity: .9; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: var(--radius-sm);
+  border: 1px solid var(--border-hv); color: var(--text);
+  font-size: 14px; text-decoration: none; background: transparent;
+  transition: all .2s;
+}
+.btn-outline:hover { background: var(--surface); border-color: var(--accent); }
+
+/* hero scroll indicator */
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  animation: heroIn .7s .5s ease both;
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
+.scroll-lbl { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── KPI STRIP ── */
+.kpi-strip {
+  position: relative; z-index: 1;
+  background: var(--surface);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  padding: 36px 24px;
+}
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0; max-width: 1100px; margin: 0 auto;
+}
+.kpi-item {
+  text-align: center; padding: 12px 24px;
+  border-right: 1px solid var(--border);
+}
+.kpi-item:last-child { border-right: none; }
+.kpi-val { font-size: 32px; font-weight: 700; line-height: 1; }
+.kpi-val.violet { color: var(--accent); }
+.kpi-val.pink   { color: var(--accent2); }
+.kpi-val.green  { color: var(--accent3); }
+.kpi-val.amber  { color: var(--amber); }
+.kpi-val.red    { color: var(--red); }
+.kpi-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-top: 6px; }
+
+/* ── LAYOUT ── */
+.wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 88px 24px; }
+.section-tag { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.section-h { font-size: clamp(26px, 4vw, 40px); font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: -.01em; }
+.section-sub { font-size: 15px; color: var(--muted); max-width: 500px; }
+.sep { width: 100%; height: 1px; background: var(--border); position: relative; z-index: 1; }
+
+/* ── REVEAL ANIMATION ── */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ── PROBLEM BLOCK ── */
+.problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 44px; }
+.prob-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px;
+  transition: border-color .25s, transform .25s;
+}
+.prob-card:hover { border-color: var(--border-hv); transform: translateY(-4px); }
+.prob-icon {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+  margin-bottom: 16px;
+}
+.pi-violet { background: rgba(167,139,250,.14); color: var(--accent); }
+.pi-pink   { background: rgba(244,114,182,.12); color: var(--accent2); }
+.pi-green  { background: rgba(52,211,153,.1);   color: var(--accent3); }
+.pi-amber  { background: rgba(251,191,36,.1);   color: var(--amber); }
+.pi-red    { background: rgba(248,113,113,.1);  color: var(--red); }
+.prob-h { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.prob-p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── PROCESS TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 0; margin-top: 44px; position: relative; }
+.timeline::before {
+  content: ''; position: absolute; left: 23px; top: 0; bottom: 0;
+  width: 1px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+}
+.tl-step {
+  display: grid; grid-template-columns: 48px 1fr;
+  gap: 24px; padding-bottom: 36px; position: relative;
+}
+.tl-step:last-child { padding-bottom: 0; }
+.tl-num {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: var(--card); border: 1px solid var(--border-hv);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: var(--accent);
+  flex-shrink: 0; z-index: 1;
+  transition: background .25s, border-color .25s;
+}
+.tl-step:hover .tl-num { background: rgba(167,139,250,.12); border-color: var(--accent); }
+.tl-body {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 20px 24px;
+  transition: border-color .25s;
+}
+.tl-step:hover .tl-body { border-color: var(--border-hv); }
+.tl-title { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+.tl-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.tl-tags  { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.tl-tag {
+  font-size: 11px; padding: 3px 10px; border-radius: 20px;
+  background: rgba(167,139,250,.08); color: var(--accent);
+  border: 1px solid rgba(167,139,250,.2);
+}
+
+/* ── INSIGHTS TABS ── */
+.insight-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 44px; margin-bottom: 20px; }
+.itab {
+  font-size: 13px; padding: 8px 18px; border-radius: 6px;
+  border: 1px solid var(--border); color: var(--muted);
+  background: transparent; cursor: pointer; transition: all .2s;
+}
+.itab:hover { color: var(--text); border-color: var(--border-hv); }
+.itab.on { background: var(--accent); color: #0c0b14; border-color: var(--accent); font-weight: 600; }
+.ipanel { display: none; animation: fadeUp .35s ease; }
+.ipanel.on { display: grid; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+.insight-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 26px;
+  transition: border-color .22s, transform .22s;
+}
+.insight-card:hover { border-color: var(--border-hv); transform: translateY(-3px); }
+.ic-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 18px;
+}
+.ic-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center; font-size: 19px;
+}
+.ic-title { font-size: 14px; font-weight: 600; color: #fff; }
+.ic-sub   { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ic-stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.ic-stat {
+  background: var(--surface); border-radius: 8px; padding: 12px 16px; flex: 1; min-width: 110px;
+}
+.ic-stat-val { font-size: 20px; font-weight: 700; color: #fff; }
+.ic-stat-lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.ic-findings { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.ic-findings li {
+  font-size: 13px; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.5;
+}
+.ic-findings li::before {
+  content: ''; position: absolute; left: 0; top: 7px;
+  width: 5px; height: 5px; border-radius: 50%;
+}
+.fi-v::before { background: var(--accent); }
+.fi-p::before { background: var(--accent2); }
+.fi-g::before { background: var(--accent3); }
+.ic-findings li strong { color: var(--text); font-weight: 500; }
+
+/* ── DAX BLOCK ── */
+.dax-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 44px; }
+.dax-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden;
+  transition: border-color .22s;
+}
+.dax-card:hover { border-color: var(--border-hv); }
+.dax-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.dax-name { font-size: 12px; font-weight: 600; color: var(--accent); }
+.dax-dot-row { display: flex; gap: 5px; }
+.dax-dot { width: 10px; height: 10px; border-radius: 50%; }
+.d1{background:#f87171} .d2{background:#fbbf24} .d3{background:#34d399}
+.dax-body { padding: 18px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.7; }
+.dax-kw  { color: var(--accent2); }
+.dax-fn  { color: var(--accent3); }
+.dax-str { color: var(--amber); }
+.dax-cm  { color: var(--muted); font-style: italic; }
+
+/* ── CHALLENGES ── */
+.chal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 44px; }
+.chal-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 24px;
+  transition: border-color .22s, transform .22s;
+}
+.chal-card:hover { border-color: var(--border-hv); transform: translateY(-3px); }
+.chal-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+.chal-badge {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 20px; flex-shrink: 0; margin-top: 2px;
+}
+.cb-problem { background: rgba(248,113,113,.12); color: var(--red); }
+.cb-solution { background: rgba(52,211,153,.1); color: var(--accent3); }
+.chal-h { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+.chal-p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.chal-arrow {
+  width: 100%; text-align: center; font-size: 18px; color: var(--border-hv);
+  padding: 8px 0;
+}
+
+/* ── IMPACT ── */
+.impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 44px; }
+.impact-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 26px 22px;
+  transition: border-color .22s, transform .22s;
+}
+.impact-card:hover { border-color: var(--border-hv); transform: translateY(-4px); }
+.impact-icon { font-size: 28px; margin-bottom: 14px; }
+.impact-h { font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+.impact-p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── TECH STACK ── */
+.stack-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+.stack-chip {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 13px; font-weight: 500;
+  padding: 10px 18px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--card);
+  color: var(--text); transition: all .2s;
+}
+.stack-chip:hover { border-color: var(--border-hv); transform: translateY(-2px); }
+.stack-chip i { font-size: 18px; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+}
+.ft-left  { font-size: 13px; color: var(--muted); }
+.ft-links { display: flex; gap: 20px; }
+.ft-link {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s;
+}
+.ft-link:hover { color: var(--accent); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2d2840; border-radius: 3px; }
+
+@media (max-width: 700px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  .problem-grid, .dax-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; }
+  .kpi-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .kpi-item:last-child { border-bottom: none; }
+}
+</style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html#about">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html#toolset">Tool Set</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
-<!-- Project Details Section -->
-<div class="container custom-container">
-    <h2 class="section-title" style="font-size: 30px; font-weight: bold; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 0.8cm;">HR Analytics Dashboard for Employee Attrition Analysis</h2>
-    <img src="https://raw.githubusercontent.com/Suraj149696/HR-Analytics-Dashboard/main/hr-technology-700x467.jpg" alt="HR Analytics Dashboard" class="project-image" style="max-width: 30%;">
-    <div class="project-description">
-        <p>Developed an HR Analytics Dashboard designed to significantly improve employee performance and retention by addressing and reducing attrition rates. This comprehensive dashboard utilized advanced data cleaning and transformation techniques, coupled with sophisticated visualizations using Power BI. It provided critical insights into workforce dynamics and attrition trends, highlighting key factors that influence employee retention. Major achievements include pinpointing areas to minimize attrition, streamlining recruitment processes, and enhancing overall employee satisfaction and productivity. By offering actionable intelligence, the dashboard facilitated strategic HR decision-making, leading to a more engaged, efficient, and productive workforce.</p>
-    </div>
+<!-- ambient orbs -->
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Suraj Jagtap &nbsp;/&nbsp; <span>HR Analytics</span></span>
+  <div class="nav-links">
+    <a href="#problem">Problem</a>
+    <a href="#process">Process</a>
+    <a href="#insights">Insights</a>
+    <a href="#impact">Impact</a>
+  </div>
+  <a class="nav-cta" href="https://github.com/Suraj149696/HR-Analytics-Dashboard" target="_blank">
+    <i class="ti ti-brand-github"></i> GitHub
+  </a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span class="pulse-dot"></span>
+    Power BI &nbsp;·&nbsp; HR Analytics &nbsp;·&nbsp; Attrition Intelligence
+  </div>
+  <h1 class="hero-title">
+    Why do your best<br/>
+    people <span class="v2">leave?</span>
+  </h1>
+  <p class="hero-desc">
+    An end-to-end Power BI solution that maps every attrition driver across department, age, salary, tenure, and role — turning workforce data into a retention playbook.
+  </p>
+  <div class="hero-pills">
+    <span class="pill">Power BI Desktop</span>
+    <span class="pill">Microsoft Excel</span>
+    <span class="pill">DAX</span>
+    <span class="pill">Power Query</span>
+    <span class="pill">HR Domain Analytics</span>
+  </div>
+  <div class="hero-btns">
+    <a class="btn-main" href="https://github.com/Suraj149696/HR-Analytics-Dashboard" target="_blank">
+      <i class="ti ti-brand-github"></i> View Repository
+    </a>
+    <a class="btn-outline" href="#insights">
+      <i class="ti ti-chart-bar"></i> Explore Insights
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-lbl">Scroll</span>
+  </div>
 </div>
 
-<!-- Additional Sections in One Row -->
-<section id="additional-sections" class="py-5 mt-5" style="margin-top: -4cm; margin-left: 2cm;">
-    <div class="container">
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <h3 style="font-size: 25px; font-weight: bold;">The Steps I Took</h3>
-                <ul class="steps-list">
-                    <li>Data Collection and Cleaning</li>
-                    <li>Data Transformation and Preprocessing</li>
-                    <li>Design and Development of Interactive Dashboards</li>
-                    <li>Integration of Advanced Visualizations</li>
-                    <li>Insights Extraction and Reporting</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h3 style="font-size: 25px; font-weight: bold;">Why I Took These Steps</h3>
-                <ul class="why-steps-list">
-                    <li>To ensure accurate and clean data for analysis</li>
-                    <li>To prepare data for meaningful visualizations</li>
-                    <li>To create a user-friendly and informative dashboard</li>
-                    <li>To provide actionable insights into employee attrition</li>
-                    <li>To support strategic HR decision-making and improve retention strategies</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h3 style="font-size: 25px; font-weight: bold;">Tools I Used</h3>
-                <ul class="list-unstyled">
-                    <li>
-                        <img src="https://raw.githubusercontent.com/Suraj215151/tool/main/excel.png" alt="Excel" class="tool-image">
-                        Excel
-                    </li>
-                    <li>
-                        <img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Power%20BI.png" alt="Power BI" class="tool-image">
-                        Power BI
-                    </li>
-                </ul>
-            </div>
-        </div>
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+  <div class="kpi-grid">
+    <div class="kpi-item">
+      <div class="kpi-val violet" data-count="1470">0</div>
+      <div class="kpi-lbl">Total Employees</div>
     </div>
+    <div class="kpi-item">
+      <div class="kpi-val pink" data-count="237">0</div>
+      <div class="kpi-lbl">Employees Attrited</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val red" data-count="16.1" data-dec="1">0</div>
+      <div class="kpi-lbl">Attrition Rate (%)</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val green" data-count="1233">0</div>
+      <div class="kpi-lbl">Active Employees</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val amber" data-count="37">0</div>
+      <div class="kpi-lbl">Average Age</div>
+    </div>
+    <div class="kpi-item">
+      <div class="kpi-val violet" data-count="5">0</div>
+      <div class="kpi-lbl">Dashboard Visuals</div>
+    </div>
+  </div>
+</div>
+
+<!-- BUSINESS PROBLEM -->
+<div class="sep"></div>
+<section class="wrap" id="problem">
+  <div class="reveal">
+    <p class="section-tag">Business Problem</p>
+    <h2 class="section-h">Attrition is expensive.<br/>Guesswork is more so.</h2>
+    <p class="section-sub">Replacing one employee costs 50–200% of their annual salary. This dashboard eliminates the guesswork by surfacing exactly which segments are at risk and why.</p>
+  </div>
+  <div class="problem-grid reveal">
+    <div class="prob-card">
+      <div class="prob-icon pi-violet"><i class="ti ti-help-circle"></i></div>
+      <div class="prob-h">Which departments are bleeding talent?</div>
+      <div class="prob-p">Sales, R&D, and HR show the highest attrition rates — but raw headcount doesn't tell you which is proportionally the most critical.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon pi-pink"><i class="ti ti-coin"></i></div>
+      <div class="prob-h">Does salary drive people out the door?</div>
+      <div class="prob-p">The data reveals a clear inflection point — employees in the lowest salary slab (up to ₹5K/month) attrite at nearly 3× the rate of the highest earners.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon pi-green"><i class="ti ti-calendar"></i></div>
+      <div class="prob-h">When in a career are people most likely to leave?</div>
+      <div class="prob-p">Years 1–2 are the most dangerous window. Attrition spikes sharply at tenure year 1 before dropping — early engagement is the highest-leverage intervention.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon pi-amber"><i class="ti ti-school"></i></div>
+      <div class="prob-h">Do qualifications predict flight risk?</div>
+      <div class="prob-p">Life Sciences and Medical graduates show higher attrition than Technical Degree holders — signalling a possible role-fit or expectation mismatch at hiring.</div>
+    </div>
+  </div>
 </section>
 
-<!-- Challenges Section -->
-<section class="challenge" style="background-color: #ef8c13;">
-    <div class="container">
-        <h3 class="font-weight-bold" style="font-size: 25px; color: white;">Challenges:</h3>
-        <ul style="color: white;">
-            <li><strong>Data Quality Issues:</strong> Incomplete or inaccurate data can affect the reliability of the dashboard. Ensuring data consistency and accuracy was critical for meaningful insights.</li>
-            <li><strong>Complex Data Visualization:</strong> Creating interactive and insightful visualizations that accurately represent complex data and trends required advanced Power BI skills and careful design to avoid misinterpretation.</li>
-            <li><strong>User Adoption:</strong> Ensuring that the dashboard was user-friendly and met the needs of HR professionals was essential for successful adoption and effective decision-making.</li>
-        </ul>
+<!-- PROCESS -->
+<div class="sep"></div>
+<section class="wrap" id="process">
+  <div class="reveal">
+    <p class="section-tag">Workflow</p>
+    <h2 class="section-h">From raw CSV to executive dashboard</h2>
+    <p class="section-sub">A structured five-stage pipeline — every step traceable, reproducible, and documented.</p>
+  </div>
+  <div class="timeline reveal">
+    <div class="tl-step">
+      <div class="tl-num">1</div>
+      <div class="tl-body">
+        <div class="tl-title">Data Collection & Cleaning</div>
+        <div class="tl-desc">Loaded HR_Analytics.csv into Excel. Removed duplicate employee records, handled null values in JobSatisfaction and EnvironmentSatisfaction fields, fixed data type mismatches, and standardised categorical labels (e.g. "TravelRarely" vs "Travel_Rarely").</div>
+        <div class="tl-tags"><span class="tl-tag">Excel</span><span class="tl-tag">Data validation</span><span class="tl-tag">Null handling</span></div>
+      </div>
     </div>
+    <div class="tl-step">
+      <div class="tl-num">2</div>
+      <div class="tl-body">
+        <div class="tl-title">Data Transformation & Feature Engineering</div>
+        <div class="tl-desc">Created age bins (18–25, 26–35, 36–45, 46–55, 55+), salary slabs (Upto 5K, 5K–10K, 10K–15K, 15K+), and derived an AttritionCount column (1/0) to enable clean aggregations in Power BI. Applied Power Query transformations for consistent data types.</div>
+        <div class="tl-tags"><span class="tl-tag">Power Query</span><span class="tl-tag">Binning</span><span class="tl-tag">Encoding</span></div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">3</div>
+      <div class="tl-body">
+        <div class="tl-title">Data Modelling in Power BI</div>
+        <div class="tl-desc">Built the data model with correct relationship cardinality. Created all core DAX measures — Attrition Rate, Active Employee Count, Average Age, Average Salary — as reusable calculated fields rather than report-level aggregates.</div>
+        <div class="tl-tags"><span class="tl-tag">DAX</span><span class="tl-tag">Data modelling</span><span class="tl-tag">Calculated columns</span></div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">4</div>
+      <div class="tl-body">
+        <div class="tl-title">Dashboard Design & Visualisation</div>
+        <div class="tl-desc">Designed an intuitive single-page dashboard with KPI cards at the top, then breakdowns by department, age group, salary slab, education field, job role, and years at company. Used interactive slicers for gender and department filtering throughout.</div>
+        <div class="tl-tags"><span class="tl-tag">Power BI</span><span class="tl-tag">Stacked bar</span><span class="tl-tag">Donut chart</span><span class="tl-tag">Slicers</span></div>
+      </div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">5</div>
+      <div class="tl-body">
+        <div class="tl-title">Insights Extraction & Recommendations</div>
+        <div class="tl-desc">Identified the top attrition drivers from the completed dashboard and translated them into four actionable HR recommendations — targeting early tenure engagement, salary review, role-fit at hiring, and lab technician career pathing.</div>
+        <div class="tl-tags"><span class="tl-tag">Analysis</span><span class="tl-tag">HR strategy</span><span class="tl-tag">Reporting</span></div>
+      </div>
+    </div>
+  </div>
 </section>
 
+<!-- INSIGHTS -->
+<div class="sep"></div>
+<section class="wrap" id="insights">
+  <div class="reveal">
+    <p class="section-tag">Dashboard Insights</p>
+    <h2 class="section-h">What the data revealed</h2>
+    <p class="section-sub">Click through each dimension to explore the attrition patterns uncovered in the dashboard.</p>
+  </div>
 
-<!-- Wonderful Visuals Section -->
-<section id="HR Analytics Dashboard" class="py-5">
-    <div class="container">
-        <h2 class="section-title">HR Analytics Dashboard</h2>
-        <div class="text-center">
-            <img src="https://raw.githubusercontent.com/Suraj149696/HR-Analytics-Dashboard/main/Hr%20Dashboard.png" alt="Power BI Dashboard" class="img-fluid" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-        </div>
-        <div class="text-left mt-3">
-            <a href="https://drive.google.com/uc?export=download&id=1F4m9h_FraRUWrgVAVyVNqFsXXPprcVcN" class="btn btn-primary" download="HR_Dashboard.pbix">Download Dashboard</a>
-        </div>
+  <div class="insight-tabs reveal">
+    <button class="itab on" onclick="switchTab(this,'dept')">Department</button>
+    <button class="itab" onclick="switchTab(this,'age')">Age Group</button>
+    <button class="itab" onclick="switchTab(this,'salary')">Salary</button>
+    <button class="itab" onclick="switchTab(this,'role')">Job Role</button>
+    <button class="itab" onclick="switchTab(this,'edu')">Education</button>
+  </div>
+
+  <!-- Department -->
+  <div id="dept" class="ipanel on reveal" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-pink"><i class="ti ti-building"></i></div>
+        <div><div class="ic-title">Research & Development</div><div class="ic-sub">Highest absolute attrition</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent2)">133</div><div class="ic-stat-lbl">Employees left</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--red)">~14%</div><div class="ic-stat-lbl">Attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-p">Largest department — accounts for <strong>56% of total attrition</strong></li>
+        <li class="fi-p">Lab Technicians are the most at-risk role within R&D</li>
+      </ul>
     </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-violet"><i class="ti ti-speakerphone"></i></div>
+        <div><div class="ic-title">Sales</div><div class="ic-sub">Highest proportional rate</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent)">92</div><div class="ic-stat-lbl">Employees left</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--red)">~21%</div><div class="ic-stat-lbl">Attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-v">Sales Executives drive the majority of this department's attrition</li>
+        <li class="fi-v"><strong>Target for incentive and recognition programmes</strong></li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-green"><i class="ti ti-users"></i></div>
+        <div><div class="ic-title">Human Resources</div><div class="ic-sub">Smallest but notable</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">12</div><div class="ic-stat-lbl">Employees left</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--amber)">~19%</div><div class="ic-stat-lbl">Attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-g">Small absolute number but <strong>disproportionately high rate</strong></li>
+        <li class="fi-g">Worth monitoring — HR instability can cascade organisation-wide</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Age -->
+  <div id="age" class="ipanel reveal" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-pink"><i class="ti ti-flame"></i></div>
+        <div><div class="ic-title">Age 26–35</div><div class="ic-sub">Highest risk bracket</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent2)">116</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--red)">49%</div><div class="ic-stat-lbl">Of total attritions</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-p">Early-career professionals exploring options — <strong>most active job market segment</strong></li>
+        <li class="fi-p">Career growth conversations critical in this bracket</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-violet"><i class="ti ti-user"></i></div>
+        <div><div class="ic-title">Age 18–25</div><div class="ic-sub">Entry-level attrition</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent)">44</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--amber)">High %</div><div class="ic-stat-lbl">Relative rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-v">New joiners testing the job market — <strong>onboarding quality is pivotal</strong></li>
+        <li class="fi-v">Mentorship and structured 90-day plans reduce this sharply</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-green"><i class="ti ti-user-check"></i></div>
+        <div><div class="ic-title">Age 46+</div><div class="ic-sub">Stable and retained</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">Low</div><div class="ic-stat-lbl">Attrition count</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">Stable</div><div class="ic-stat-lbl">Retention</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-g">Senior employees are largely retained — <strong>institutional knowledge is secure</strong></li>
+        <li class="fi-g">Succession planning should leverage this cohort</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Salary -->
+  <div id="salary" class="ipanel reveal" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+    <div class="insight-card" style="border-color:rgba(248,113,113,.3);">
+      <div class="ic-head">
+        <div class="ic-icon pi-red"><i class="ti ti-arrow-down-circle"></i></div>
+        <div><div class="ic-title">Up to ₹5K / month</div><div class="ic-sub">Critical risk zone</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--red)">163</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--red)">~30%</div><div class="ic-stat-lbl">Attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-p"><strong>69% of all attritions</strong> fall in this salary bracket</li>
+        <li class="fi-p">Clearest signal in the entire dataset — compensation review is urgent</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-amber"><i class="ti ti-minus-circle"></i></div>
+        <div><div class="ic-title">₹5K – ₹10K / month</div><div class="ic-sub">Moderate risk</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--amber)">49</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--amber)">~11%</div><div class="ic-stat-lbl">Attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-v">Rate drops significantly once salary crosses ₹5K threshold</li>
+        <li class="fi-v">Non-monetary factors (role clarity, growth) more influential here</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-green"><i class="ti ti-check-circle"></i></div>
+        <div><div class="ic-title">₹15K+ / month</div><div class="ic-sub">Largely retained</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">Low</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">&lt;5%</div><div class="ic-stat-lbl">Attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-g">High earners are almost universally retained</li>
+        <li class="fi-g"><strong>Salary floor uplift</strong> for ₹5K bracket would have immediate impact</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Job Role -->
+  <div id="role" class="ipanel reveal" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+    <div class="insight-card" style="border-color:rgba(248,113,113,.3);">
+      <div class="ic-head">
+        <div class="ic-icon pi-red"><i class="ti ti-microscope"></i></div>
+        <div><div class="ic-title">Laboratory Technician</div><div class="ic-sub">Highest attrition role</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--red)">62</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--red)">~24%</div><div class="ic-stat-lbl">Role attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-p">Likely driven by low salary band + limited career progression</li>
+        <li class="fi-p">Clear career ladder from Technician → Senior → Scientist needed</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-pink"><i class="ti ti-headset"></i></div>
+        <div><div class="ic-title">Sales Executive</div><div class="ic-sub">Second highest attrition</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent2)">57</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent2)">~18%</div><div class="ic-stat-lbl">Role attrition rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-p">Performance pressure + commission structures driving dissatisfaction</li>
+        <li class="fi-p">Recognition programmes and OTE clarity recommended</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-green"><i class="ti ti-shield-check"></i></div>
+        <div><div class="ic-title">Manager / Director</div><div class="ic-sub">Highest retention</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">Very low</div><div class="ic-stat-lbl">Attrition</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">&lt;3%</div><div class="ic-stat-lbl">Rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-g">Senior roles remain stable — <strong>authority + compensation combination works</strong></li>
+        <li class="fi-g">Modelling what retains managers can inform junior interventions</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Education -->
+  <div id="edu" class="ipanel reveal" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-violet"><i class="ti ti-dna"></i></div>
+        <div><div class="ic-title">Life Sciences</div><div class="ic-sub">Largest attrition group</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent)">89</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent)">38%</div><div class="ic-stat-lbl">Share of total</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-v">Largest qualified group — proportional rate is moderate</li>
+        <li class="fi-v">May reflect <strong>role-fit misalignment</strong> at recruitment stage</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-pink"><i class="ti ti-stethoscope"></i></div>
+        <div><div class="ic-title">Medical</div><div class="ic-sub">High proportional rate</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent2)">63</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent2)">27%</div><div class="ic-stat-lbl">Share of total</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-p">Medical graduates may expect clinical roles but land in analytics</li>
+        <li class="fi-p"><strong>Job description clarity</strong> at hiring stage is the fix</li>
+      </ul>
+    </div>
+    <div class="insight-card">
+      <div class="ic-head">
+        <div class="ic-icon pi-green"><i class="ti ti-device-laptop"></i></div>
+        <div><div class="ic-title">Technical Degree</div><div class="ic-sub">Lowest attrition</div></div>
+      </div>
+      <div class="ic-stat-row">
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">32</div><div class="ic-stat-lbl">Attritions</div></div>
+        <div class="ic-stat"><div class="ic-stat-val" style="color:var(--accent3)">Low</div><div class="ic-stat-lbl">Rate</div></div>
+      </div>
+      <ul class="ic-findings">
+        <li class="fi-g">Technical roles offer clearer career paths and skill-based progression</li>
+        <li class="fi-g"><strong>Replicating this model</strong> for other education fields is a strategic opportunity</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<!-- Result Section -->
-<section id="result" class="py-5" style="background-color: rgb(0, 30, 49); color: white;">
-    <div class="container">
-        <h2 style="font-size: 30px; font-weight: bold;">Results</h2>
-        <div class="mt-4">
-            <h4 style="font-size: 20px; font-weight: bold;">1. Key Metrics</h4>
-            <div class="row">
-                <div class="col-md-6">
-                    <ul>
-                        <li><strong>Total Number of Employees:</strong> 1,413</li>
-                        <li><strong>Attrition Count:</strong> 239</li>
-                        <li><strong>Attrition Rate:</strong> 16.1%</li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <ul>
-                        <li><strong>Average Age of Employees:</strong> 37 years</li>
-                        <li><strong>Average Salary:</strong> $6.5K</li>
-                        <li><strong>Average Tenure:</strong> 7 years</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-5">
-            <h4 style="font-size: 20px; font-weight: bold;">2. Attrition by Education</h4>
-            <p><strong>Interpretation:</strong> Employees with Life Sciences and Medical degrees are leaving the company at higher rates. This could indicate that the company may not be meeting the career expectations or job satisfaction needs of these highly educated employees.</p>
-            <p><strong>Improvement:</strong> Consider conducting exit interviews or surveys with employees in these educational categories to understand the specific reasons for attrition. Based on feedback, the company could tailor retention strategies, such as offering more career development opportunities or competitive benefits packages.</p>
-        </div>
-
-        <div class="mt-5">
-            <h4 style="font-size: 20px; font-weight: bold;">3. Attrition by Age</h4>
-            <p><strong>Interpretation:</strong> Younger employees, particularly those aged 26-35, are the most likely to leave the company. This could suggest that younger workers are not finding the growth opportunities they seek, or they might be exploring other job markets for better offers.</p>
-            <p><strong>Improvement:</strong> To retain younger employees, the company could focus on providing clearer career progression paths, mentorship programs, and opportunities for continuous learning and development. Additionally, offering flexible work arrangements might appeal to this age group.</p>
-        </div>
-
-        <div class="mt-5">
-            <h4 style="font-size: 20px; font-weight: bold;">4. Attrition by Job Role</h4>
-            <p><strong>Interpretation:</strong> Laboratory Technicians and Research Scientists are experiencing high levels of attrition. This could be due to job dissatisfaction, lack of advancement opportunities, or competitive offers from other companies.</p>
-            <p><strong>Improvement:</strong> Investigate the specific challenges faced by employees in these roles. Consider improving working conditions, enhancing job roles, offering better compensation, or providing clear paths for advancement. Strengthening the organizational culture within these roles might also reduce turnover.</p>
-        </div>
-
-        <div class="mt-5">
-            <h4 style="font-size: 20px; font-weight: bold;">5. Attrition by Salary</h4>
-            <p><strong>Interpretation:</strong> The majority of attrition is occurring among employees earning up to 5K. This suggests that lower-paid employees may be leaving due to financial dissatisfaction or the allure of better-paying jobs elsewhere.</p>
-            <p><strong>Improvement:</strong> Reevaluate the company’s compensation structure, particularly for lower-paid employees. Offering competitive salaries, performance-based incentives, and additional benefits could help retain talent. Also, consider creating pathways for upward mobility for these employees.</p>
-        </div>
-
-        <div class="mt-5">
-            <h4 style="font-size: 20px; font-weight: bold;">6. Attrition by Years at Company</h4>
-            <p><strong>Interpretation:</strong> There’s a significant spike in attrition around the 2-year mark, which might indicate that employees are leaving before they fully settle into their roles, possibly due to unmet expectations or insufficient engagement.</p>
-            <p><strong>Improvement:</strong> Implement stronger onboarding programs and ensure that new employees have clear expectations and a support system in place. Regular check-ins during the first few years, career development discussions, and employee engagement activities could help retain employees beyond this critical period.</p>
-        </div>
+<!-- DAX MEASURES -->
+<div class="sep"></div>
+<section class="wrap">
+  <div class="reveal">
+    <p class="section-tag">Technical Depth</p>
+    <h2 class="section-h">Core DAX measures</h2>
+    <p class="section-sub">All KPIs are built as reusable calculated measures — not report-level aggregates — so they respond correctly to every slicer combination.</p>
+  </div>
+  <div class="dax-grid reveal">
+    <div class="dax-card">
+      <div class="dax-header">
+        <span class="dax-name">Attrition Rate</span>
+        <div class="dax-dot-row"><div class="dax-dot d1"></div><div class="dax-dot d2"></div><div class="dax-dot d3"></div></div>
+      </div>
+      <div class="dax-body">
+        <span class="dax-cm">-- % of employees who left</span><br/>
+        <span class="dax-kw">Attrition Rate</span> =<br/>
+        &nbsp;<span class="dax-fn">DIVIDE</span>(<br/>
+        &nbsp;&nbsp;<span class="dax-fn">COUNTROWS</span>(<br/>
+        &nbsp;&nbsp;&nbsp;<span class="dax-fn">FILTER</span>(HR,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;HR[Attrition] = <span class="dax-str">"Yes"</span>)<br/>
+        &nbsp;&nbsp;),<br/>
+        &nbsp;&nbsp;<span class="dax-fn">COUNTROWS</span>(HR), 0<br/>
+        )
+      </div>
     </div>
+    <div class="dax-card">
+      <div class="dax-header">
+        <span class="dax-name">Active Employees</span>
+        <div class="dax-dot-row"><div class="dax-dot d1"></div><div class="dax-dot d2"></div><div class="dax-dot d3"></div></div>
+      </div>
+      <div class="dax-body">
+        <span class="dax-cm">-- Current headcount</span><br/>
+        <span class="dax-kw">Active Employees</span> =<br/>
+        &nbsp;<span class="dax-fn">COUNTROWS</span>(<br/>
+        &nbsp;&nbsp;<span class="dax-fn">FILTER</span>(<br/>
+        &nbsp;&nbsp;&nbsp;HR_Analytics,<br/>
+        &nbsp;&nbsp;&nbsp;HR_Analytics[Attrition]<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;= <span class="dax-str">"No"</span><br/>
+        &nbsp;&nbsp;)<br/>
+        )
+      </div>
+    </div>
+    <div class="dax-card">
+      <div class="dax-header">
+        <span class="dax-name">Avg Salary Slab</span>
+        <div class="dax-dot-row"><div class="dax-dot d1"></div><div class="dax-dot d2"></div><div class="dax-dot d3"></div></div>
+      </div>
+      <div class="dax-body">
+        <span class="dax-cm">-- Mean monthly income</span><br/>
+        <span class="dax-kw">Avg Monthly Income</span> =<br/>
+        &nbsp;<span class="dax-fn">AVERAGE</span>(<br/>
+        &nbsp;&nbsp;HR_Analytics<br/>
+        &nbsp;&nbsp;&nbsp;[MonthlyIncome]<br/>
+        )<br/><br/>
+        <span class="dax-cm">-- Used in salary slab visuals</span>
+      </div>
+    </div>
+    <div class="dax-card">
+      <div class="dax-header">
+        <span class="dax-name">Attrition Count</span>
+        <div class="dax-dot-row"><div class="dax-dot d1"></div><div class="dax-dot d2"></div><div class="dax-dot d3"></div></div>
+      </div>
+      <div class="dax-body">
+        <span class="dax-cm">-- Summed from encoded column</span><br/>
+        <span class="dax-kw">Attrition Count</span> =<br/>
+        &nbsp;<span class="dax-fn">SUM</span>(<br/>
+        &nbsp;&nbsp;HR_Analytics<br/>
+        &nbsp;&nbsp;&nbsp;[AttritionCount]<br/>
+        )<br/><br/>
+        <span class="dax-cm">-- AttritionCount: IF Yes=1, No=0</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-
-
-<!-- Footer -->
-<footer class="bg-orange text-white py-4" style="background-color: orange;">
-    <div class="container text-center">
-        <!-- Logos and Links -->
-        <div class="mb-3">
-            <a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank">
-                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/linkedin.png" alt="LinkedIn" class="img-fluid mx-2" style="width: 25px; height: 25px;">
-            </a>
-            <a href="https://github.com/Suraj149696" target="_blank">
-                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/github.png" alt="GitHub" class="img-fluid mx-2" style="width: 25px; height: 25px;">
-            </a>
-             <a href="index.html#about" target="_blank">
-                <img src="https://raw.githubusercontent.com/Suraj215151/social-tools/main/Link1.webp" alt="Portfolio" class="img-fluid mx-2" style="width: 25px; height: 25px;">
-            </a>
+<!-- CHALLENGES -->
+<div class="sep"></div>
+<section class="wrap">
+  <div class="reveal">
+    <p class="section-tag">Challenges & Solutions</p>
+    <h2 class="section-h">What made this project hard</h2>
+    <p class="section-sub">Three real obstacles encountered — and how each was resolved.</p>
+  </div>
+  <div class="chal-grid reveal">
+    <div class="chal-card">
+      <div class="chal-top">
+        <span class="chal-badge cb-problem">Challenge</span>
+        <div>
+          <div class="chal-h">Dirty & incomplete data</div>
+          <div class="chal-p">Inconsistent categorical values (e.g. "TravelRarely" vs "Travel_Rarely"), missing satisfaction scores, and duplicate employee records caused incorrect aggregate calculations.</div>
         </div>
+      </div>
+      <div class="chal-arrow">↓</div>
+      <div class="chal-top">
+        <span class="chal-badge cb-solution">Solution</span>
+        <div>
+          <div class="chal-h">Excel-first validation pipeline</div>
+          <div class="chal-p">Built a systematic Excel cleaning checklist before import — standardised labels, imputed missing satisfaction values with field median, and flagged duplicates with conditional formatting before removing.</div>
+        </div>
+      </div>
     </div>
+    <div class="chal-card">
+      <div class="chal-top">
+        <span class="chal-badge cb-problem">Challenge</span>
+        <div>
+          <div class="chal-h">Visuals misrepresenting patterns</div>
+          <div class="chal-p">Initial bar charts showed R&D as the "problem" department purely due to headcount — masking that Sales had a far higher proportional attrition rate, which would have led to wrong recommendations.</div>
+        </div>
+      </div>
+      <div class="chal-arrow">↓</div>
+      <div class="chal-top">
+        <span class="chal-badge cb-solution">Solution</span>
+        <div>
+          <div class="chal-h">Rate-based DAX measures alongside counts</div>
+          <div class="chal-p">Added department-level Attrition Rate measures to sit alongside raw counts — so every bar chart now shows both absolute numbers and the rate, preventing size-bias in interpretation.</div>
+        </div>
+      </div>
+    </div>
+    <div class="chal-card">
+      <div class="chal-top">
+        <span class="chal-badge cb-problem">Challenge</span>
+        <div>
+          <div class="chal-h">Making it usable for non-technical HR teams</div>
+          <div class="chal-p">HR professionals need to act on the dashboard — not decode it. Early versions required users to understand what "attrition rate by slab" meant, causing confusion in user testing.</div>
+        </div>
+      </div>
+      <div class="chal-arrow">↓</div>
+      <div class="chal-top">
+        <span class="chal-badge cb-solution">Solution</span>
+        <div>
+          <div class="chal-h">Plain-language labels & guided layout</div>
+          <div class="chal-p">Rewrote every chart title as a business question ("Which age group is most at risk?"), added tooltips with plain-English explanations, and structured the page to read top-down as a narrative.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS IMPACT -->
+<div class="sep"></div>
+<section class="wrap" id="impact">
+  <div class="reveal">
+    <p class="section-tag">Business Impact</p>
+    <h2 class="section-h">What this delivers for HR teams</h2>
+    <p class="section-sub">Four concrete outcomes an HR leader gets from this dashboard in their first session.</p>
+  </div>
+  <div class="impact-grid reveal">
+    <div class="impact-card">
+      <div class="impact-icon">🎯</div>
+      <div class="impact-h">Pinpoint at-risk segments</div>
+      <div class="impact-p">No more guessing — immediately see that Lab Technicians in the ₹5K salary band at year 1 of tenure are the highest-risk intersection.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">⏱️</div>
+      <div class="impact-h">Replace weekly manual reports</div>
+      <div class="impact-p">The dashboard replaces hours of weekly Excel pivot work. Any HR manager can filter by department, gender, or age group in seconds.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">💬</div>
+      <div class="impact-h">Data-backed salary conversations</div>
+      <div class="impact-p">The salary slab analysis gives HR a factual basis to go to finance with: "30% attrition in the ₹5K band vs under 5% above ₹15K" is hard to argue against.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">📋</div>
+      <div class="impact-h">Recruitment brief refinement</div>
+      <div class="impact-p">Education field attrition data allows recruiters to rewrite job descriptions for Life Sciences and Medical roles to set accurate expectations before hiring.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<div class="sep"></div>
+<section class="wrap">
+  <div class="reveal">
+    <p class="section-tag">Tech Stack</p>
+    <h2 class="section-h">Tools used</h2>
+  </div>
+  <div class="stack-row reveal">
+    <span class="stack-chip"><i class="ti ti-chart-pie" style="color:#F2C811"></i> Power BI Desktop</span>
+    <span class="stack-chip"><i class="ti ti-table" style="color:#217346"></i> Microsoft Excel</span>
+    <span class="stack-chip"><i class="ti ti-function" style="color:var(--accent)"></i> DAX</span>
+    <span class="stack-chip"><i class="ti ti-transform" style="color:var(--accent2)"></i> Power Query</span>
+    <span class="stack-chip"><i class="ti ti-database" style="color:var(--accent3)"></i> Data Modelling</span>
+    <span class="stack-chip"><i class="ti ti-layout-dashboard" style="color:var(--amber)"></i> Dashboard Design</span>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-left">HR Analytics Dashboard &nbsp;·&nbsp; Power BI · Excel · DAX &nbsp;·&nbsp; Suraj Jagtap</div>
+  <div class="ft-links">
+    <a class="ft-link" href="https://github.com/Suraj149696/HR-Analytics-Dashboard" target="_blank">
+      <i class="ti ti-brand-github"></i> GitHub
+    </a>
+    <a class="ft-link" href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank">
+      <i class="ti ti-brand-linkedin"></i> LinkedIn
+    </a>
+    <a class="ft-link" href="mailto:suraj149696@gmail.com">
+      <i class="ti ti-mail"></i> Email
+    </a>
+  </div>
 </footer>
 
+<script>
+// ── Scroll reveal ──
+const revealEls = document.querySelectorAll('.reveal');
+new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 70);
+    }
+  });
+}, { threshold: 0.1 }).observe(document.body);
+const io2 = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io2.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => io2.observe(el));
 
+// ── Counter animation ──
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.count);
+  const dec = el.dataset.dec ? parseInt(el.dataset.dec) : 0;
+  const dur = 1600, step = 14;
+  const inc = target / (dur / step);
+  let cur = 0;
+  const t = setInterval(() => {
+    cur = Math.min(cur + inc, target);
+    el.textContent = dec ? cur.toFixed(dec) : Math.floor(cur).toLocaleString();
+    if (cur >= target) clearInterval(t);
+  }, step);
+}
+const kpiStrip = document.querySelector('.kpi-strip');
+let counted = false;
+new IntersectionObserver(([e]) => {
+  if (e.isIntersecting && !counted) {
+    counted = true;
+    document.querySelectorAll('[data-count]').forEach(animateCounter);
+  }
+}, { threshold: 0.3 }).observe(kpiStrip);
 
-
-
-
+// ── Insight tabs ──
+function switchTab(btn, id) {
+  document.querySelectorAll('.itab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.ipanel').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById(id).classList.add('on');
+}
+</script>
+</body>
+</html>
