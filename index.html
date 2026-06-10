@@ -1,703 +1,1237 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>SurajJagtap Portfolio</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/ionicons.min.css">
-    
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-
-
-
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Suraj Jagtap — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0b0f1a;
+  --ink-soft:#4a5168;
+  --ink-faint:#8c93a8;
+  --bg:#f5f6f8;
+  --card:#ffffff;
+  --accent:#1a56db;
+  --accent2:#0ea5e9;
+  --accent-light:#e8effd;
+  --gold:#d97706;
+  --border:#e2e6ef;
+  --r:14px;
+  --nav-h:64px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;font-size:15px;overflow-x:hidden}
 
-/*======================================
-//--//-->   ABOUT
-======================================*/
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .65s ease,transform .65s ease}
+.reveal-left.visible{opacity:1;transform:none}
+.reveal-right{opacity:0;transform:translateX(32px);transition:opacity .65s ease,transform .65s ease}
+.reveal-right.visible{opacity:1;transform:none}
+.delay-1{transition-delay:.1s}
+.delay-2{transition-delay:.2s}
+.delay-3{transition-delay:.3s}
+.delay-4{transition-delay:.4s}
+.delay-5{transition-delay:.5s}
 
-.about-mf .box-shadow-full {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:var(--nav-h);
+  background:rgba(245,246,248,.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6%;
+  transition:box-shadow .3s;
+}
+nav.scrolled{box-shadow:0 2px 20px rgba(0,0,0,.07)}
+.nav-logo{
+  font-family:'Syne',sans-serif;
+  font-size:20px;font-weight:800;
+  color:var(--ink);
+  text-decoration:none;
+  letter-spacing:-.02em;
+}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{
+  text-decoration:none;color:var(--ink-soft);
+  font-size:13.5px;font-weight:500;
+  transition:color .2s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;
+  background:var(--accent);border-radius:2px;transition:width .25s;
+}
+.nav-links a:hover{color:var(--accent)}
+.nav-links a:hover::after{width:100%}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:calc(var(--nav-h) + 40px) 7% 80px;
+  background:#060c1a;
+  position:relative;overflow:hidden;
+}
+.hero-bg-glow{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 70% at 70% 40%, rgba(26,86,219,.22) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 20% 80%, rgba(14,165,233,.12) 0%, transparent 60%);
+  pointer-events:none;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+}
+/* Animated particles */
+.hero-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.particle{
+  position:absolute;border-radius:50%;
+  background:rgba(26,86,219,.5);
+  animation:float linear infinite;
+}
+@keyframes float{
+  0%{transform:translateY(100vh) scale(0);opacity:0}
+  10%{opacity:1}
+  90%{opacity:.3}
+  100%{transform:translateY(-20vh) scale(1);opacity:0}
+}
+.hero-inner{position:relative;z-index:2;max-width:700px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(26,86,219,.18);
+  border:1px solid rgba(26,86,219,.38);
+  border-radius:100px;
+  padding:6px 16px;
+  font-size:12px;font-weight:600;
+  color:#7aaafb;letter-spacing:.07em;text-transform:uppercase;
+  margin-bottom:30px;
+  animation:badgePop .7s ease .2s both;
+}
+@keyframes badgePop{from{opacity:0;transform:scale(.85) translateY(8px)}to{opacity:1;transform:none}}
+.hero-badge-dot{
+  width:7px;height:7px;background:#4a8eff;border-radius:50%;
+  animation:pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.75)}}
+
+.hero-name{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(44px,7vw,76px);
+  line-height:1.05;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:-.03em;
+  margin-bottom:20px;
+  animation:heroName .8s ease .35s both;
+}
+@keyframes heroName{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-name em{
+  background:linear-gradient(135deg,#7aaafb,#60d2ff);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;font-style:normal;
+}
+.hero-tagline{
+  font-size:17px;color:rgba(255,255,255,.55);
+  font-weight:300;margin-bottom:40px;
+  max-width:520px;line-height:1.75;
+  animation:heroName .8s ease .5s both;
+}
+.hero-tagline strong{color:rgba(255,255,255,.85);font-weight:500}
+
+.hero-stats{
+  display:flex;gap:0;margin-bottom:48px;
+  animation:heroName .8s ease .65s both;
+}
+.hero-stat{padding:0 28px 0 0;margin:0 28px 0 0;border-right:1px solid rgba(255,255,255,.1)}
+.hero-stat:first-child{padding-left:0}
+.hero-stat:last-child{border-right:none}
+.stat-num{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(26px,3.5vw,36px);
+  font-weight:700;color:#fff;
+  line-height:1;
+}
+.stat-num.accent{color:#7aaafb}
+.stat-label{font-size:11px;color:rgba(255,255,255,.38);letter-spacing:.05em;text-transform:uppercase;margin-top:5px}
+
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;animation:heroName .8s ease .8s both}
+.btn-primary{
+  background:var(--accent);color:#fff;
+  padding:13px 28px;border-radius:9px;
+  text-decoration:none;font-size:14px;font-weight:600;
+  display:inline-flex;align-items:center;gap:9px;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(26,86,219,.4);
+}
+.btn-primary:hover{background:#1548c2;transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,219,.5)}
+.btn-ghost{
+  background:rgba(255,255,255,.07);color:rgba(255,255,255,.8);
+  padding:13px 24px;border-radius:9px;
+  text-decoration:none;font-size:14px;font-weight:500;
+  border:1px solid rgba(255,255,255,.15);
+  display:inline-flex;align-items:center;gap:9px;
+  transition:background .2s,border-color .2s,transform .15s;
+}
+.btn-ghost:hover{background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.35);color:#fff;transform:translateY(-2px)}
+
+/* ── SECTIONS ── */
+section{padding:88px 7%}
+.section-eyebrow{
+  font-size:11px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.section-eyebrow::before{
+  content:'';width:24px;height:2px;background:var(--accent);border-radius:2px;
+  display:inline-block;
+}
+.section-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(28px,4vw,42px);
+  font-weight:700;color:var(--ink);
+  margin-bottom:52px;line-height:1.15;
+  letter-spacing:-.02em;
+}
+.section-title span{color:var(--accent)}
+
+/* ── ABOUT ── */
+#about{background:var(--card)}
+.about-grid{display:grid;grid-template-columns:300px 1fr;gap:64px;align-items:start}
+.about-sticky{position:sticky;top:calc(var(--nav-h) + 16px)}
+.profile-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:32px 28px;
+  text-align:center;
+}
+.avatar-wrap{
+  position:relative;display:inline-block;
+  margin-bottom:18px;
+}
+.avatar-ring{
+  position:absolute;inset:-5px;border-radius:50%;
+  border:2px solid transparent;
+  background:linear-gradient(135deg,var(--accent),var(--accent2)) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:destination-out;
+  mask-composite:exclude;
+  animation:ringRotate 8s linear infinite;
+}
+@keyframes ringRotate{to{transform:rotate(360deg)}}
+.profile-img{
+  width:110px;height:110px;
+  border-radius:50%;object-fit:cover;
+  display:block;
+}
+.profile-name{
+  font-family:'Syne',sans-serif;
+  font-size:20px;font-weight:700;
+  color:var(--ink);margin-bottom:4px;
+  letter-spacing:-.01em;
+}
+.profile-role{font-size:12.5px;color:var(--accent);font-weight:600;letter-spacing:.04em;margin-bottom:6px}
+.profile-location{font-size:12px;color:var(--ink-faint);margin-bottom:20px}
+.profile-location i{margin-right:4px}
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:22px}
+.badge{
+  background:var(--accent-light);color:var(--accent);
+  font-size:11.5px;font-weight:600;
+  padding:4px 10px;border-radius:100px;
+}
+.profile-socials{display:flex;gap:8px}
+.social-btn{
+  flex:1;padding:9px;border-radius:9px;
+  font-size:12.5px;font-weight:600;
+  text-decoration:none;text-align:center;
+  transition:opacity .2s,transform .15s;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.social-btn:hover{opacity:.85;transform:translateY(-1px)}
+.social-btn.li{background:#0077b5;color:#fff}
+.social-btn.gh{background:#24292e;color:#fff}
+
+.about-text p{
+  color:var(--ink-soft);
+  font-size:15.5px;line-height:1.8;
+  margin-bottom:18px;
+}
+.about-quote{
+  border-left:3px solid var(--accent);
+  background:var(--accent-light);
+  border-radius:0 10px 10px 0;
+  padding:18px 22px;
+  margin:28px 0;
+  font-size:15px;
+  color:var(--ink);
+  font-style:italic;
+  line-height:1.7;
+}
+.about-quote::before{content:'\201C';font-size:28px;color:var(--accent);line-height:0;vertical-align:-.4em;margin-right:4px;font-family:Georgia,serif}
+
+/* ── SKILLS ── */
+#skills{background:var(--bg)}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.skill-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:26px;
+  transition:box-shadow .25s,transform .2s,border-color .2s;
+  cursor:default;
+}
+.skill-card:hover{
+  box-shadow:0 6px 28px rgba(26,86,219,.1);
+  transform:translateY(-3px);
+  border-color:rgba(26,86,219,.25);
+}
+.skill-icon{
+  width:44px;height:44px;
+  border-radius:12px;
+  background:var(--accent-light);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;
+  font-size:20px;
+  color:var(--accent);
+}
+.skill-heading{
+  font-size:13px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;
+  color:var(--accent);margin-bottom:14px;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:7px}
+.skill-tag{
+  background:var(--bg);
+  border:1px solid var(--border);
+  color:var(--ink-soft);
+  font-size:12.5px;font-weight:500;
+  padding:4px 11px;border-radius:6px;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.skill-card:hover .skill-tag{
+  background:var(--accent-light);
+  border-color:rgba(26,86,219,.2);
+  color:var(--accent);
 }
 
-.about-mf .about-img {
-  margin-bottom: 2rem;
+/* ── EXPERIENCE ── */
+#experience{background:var(--card)}
+.timeline{position:relative;padding-left:32px}
+.timeline::before{
+  content:'';
+  position:absolute;left:0;top:12px;bottom:0;
+  width:2px;
+  background:linear-gradient(to bottom,var(--accent) 0%,var(--border) 100%);
+}
+.tl-item{position:relative;margin-bottom:52px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{
+  position:absolute;left:-39px;top:8px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--accent);
+  border:3px solid var(--card);
+  box-shadow:0 0 0 3px var(--accent-light),0 0 0 5px rgba(26,86,219,.15);
+  transition:box-shadow .2s;
+}
+.tl-item:hover .tl-dot{box-shadow:0 0 0 4px var(--accent-light),0 0 0 8px rgba(26,86,219,.25)}
+.tl-meta{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.tl-date{
+  font-size:12px;font-weight:600;
+  color:var(--accent);
+  background:var(--accent-light);
+  padding:3px 11px;border-radius:100px;
+}
+.tl-company{font-size:13px;color:var(--ink-faint);font-weight:500}
+.tl-role{
+  font-family:'Syne',sans-serif;
+  font-size:22px;font-weight:700;
+  color:var(--ink);margin-bottom:14px;
+  letter-spacing:-.01em;
+}
+.impact-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  background:#fef3c7;
+  border:1px solid #fcd34d;
+  color:var(--gold);
+  font-size:11.5px;font-weight:700;
+  padding:3px 11px;border-radius:100px;
+  margin-left:10px;
+  vertical-align:middle;
+}
+.tl-list{list-style:none;padding:0}
+.tl-list li{
+  color:var(--ink-soft);
+  font-size:14.5px;line-height:1.72;
+  padding-left:20px;position:relative;
+  margin-bottom:9px;
+}
+.tl-list li::before{
+  content:'';position:absolute;left:0;top:10px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);opacity:.6;
 }
 
-.about-mf .about-img img {
-  margin-left: 10px;
+/* ── PROJECTS ── */
+#projects{background:var(--bg)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px}
+.proj-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:box-shadow .25s,transform .2s;
+}
+.proj-card:hover{
+  box-shadow:0 12px 40px rgba(0,0,0,.1);
+  transform:translateY(-4px);
+}
+.proj-top{
+  background:linear-gradient(135deg,#060c1a 0%,#0f1e3d 100%);
+  padding:24px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+}
+.proj-icon-wrap{
+  width:52px;height:52px;border-radius:13px;
+  background:rgba(26,86,219,.3);
+  border:1px solid rgba(26,86,219,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+}
+.proj-links{display:flex;gap:8px}
+.proj-link{
+  background:rgba(255,255,255,.1);
+  color:rgba(255,255,255,.8);
+  font-size:12px;font-weight:600;
+  padding:5px 13px;border-radius:7px;
+  text-decoration:none;
+  transition:background .2s,color .2s;
+  display:flex;align-items:center;gap:5px;
+}
+.proj-link:hover{background:rgba(255,255,255,.2);color:#fff}
+.proj-body{padding:24px;flex:1;display:flex;flex-direction:column}
+.proj-title{
+  font-family:'Syne',sans-serif;
+  font-size:18px;font-weight:700;
+  color:var(--ink);margin-bottom:10px;
+  letter-spacing:-.01em;line-height:1.25;
+}
+.proj-desc{
+  color:var(--ink-soft);font-size:13.5px;
+  line-height:1.72;margin-bottom:18px;flex:1;
+}
+.proj-metrics{
+  display:flex;gap:0;
+  border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;
+  margin-bottom:16px;
+}
+.metric{
+  flex:1;text-align:center;
+  padding:12px 8px;
+  border-right:1px solid var(--border);
+}
+.metric:last-child{border-right:none}
+.metric-val{
+  font-family:'Syne',sans-serif;
+  font-size:17px;font-weight:700;
+  color:var(--accent);line-height:1;
+}
+.metric-lbl{font-size:10px;color:var(--ink-faint);margin-top:3px;text-transform:uppercase;letter-spacing:.04em}
+.proj-tags{display:flex;flex-wrap:wrap;gap:6px}
+.proj-tag{
+  background:var(--accent-light);color:var(--accent);
+  font-size:11.5px;font-weight:600;
+  padding:3px 9px;border-radius:5px;
+}
+
+/* ── EDUCATION ── */
+#education{background:var(--card)}
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-bottom:48px}
+.edu-card{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:28px;
+  transition:box-shadow .2s,transform .2s;
+}
+.edu-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07);transform:translateY(-2px)}
+.edu-icon{
+  width:42px;height:42px;border-radius:11px;
+  background:var(--accent-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--accent);
+  margin-bottom:14px;
+}
+.edu-degree{
+  font-family:'Syne',sans-serif;
+  font-size:17px;font-weight:700;
+  color:var(--ink);margin-bottom:6px;
+  line-height:1.3;
+}
+.edu-uni{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:6px}
+.edu-year{
+  font-size:12px;color:var(--ink-faint);
+  display:flex;align-items:center;gap:5px;
+}
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:13px}
+.cert-item{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:17px 20px;
+  display:flex;align-items:center;gap:13px;
+  transition:box-shadow .2s,transform .2s;
+}
+.cert-item:hover{box-shadow:0 3px 16px rgba(0,0,0,.06);transform:translateY(-2px)}
+.cert-icon{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--accent-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;color:var(--accent);
+  flex-shrink:0;
+}
+.cert-name{font-size:13px;font-weight:600;color:var(--ink);line-height:1.35}
+.cert-issuer{font-size:11.5px;color:var(--ink-faint);margin-top:2px}
+
+/* ── CONTACT ── */
+#contact{
+  background:linear-gradient(140deg,#060c1a 0%,#0c1a38 60%,#060c1a 100%);
+  color:#fff;text-align:center;
+  position:relative;overflow:hidden;
+}
+#contact::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 70% at 50% 50%,rgba(26,86,219,.18) 0%,transparent 65%);
+  pointer-events:none;
+}
+#contact .section-eyebrow{color:#7aaafb;justify-content:center}
+#contact .section-eyebrow::before{background:#7aaafb}
+#contact .section-title{color:#fff}
+.contact-sub{color:rgba(255,255,255,.5);font-size:15.5px;margin-bottom:48px;max-width:520px;margin-left:auto;margin-right:auto}
+.contact-grid{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  margin-bottom:44px;
+}
+.contact-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r);
+  padding:22px 26px;
+  text-decoration:none;
+  transition:background .2s,transform .15s,border-color .2s;
+  min-width:170px;
+  position:relative;z-index:1;
+}
+.contact-card:hover{
+  background:rgba(255,255,255,.11);
+  border-color:rgba(26,86,219,.5);
+  transform:translateY(-3px);
+}
+.contact-card-icon{font-size:22px;margin-bottom:9px;color:#7aaafb}
+.contact-card-label{font-size:11px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.contact-card-val{font-size:13.5px;color:rgba(255,255,255,.82);font-weight:500}
+.contact-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;
+  padding:22px 8%;
+  background:#020509;
+  color:rgba(255,255,255,.25);
+  font-size:13px;
+}
+
+/* ── CURSOR DOT ── */
+.cursor-dot{
+  position:fixed;
+  width:8px;height:8px;
+  background:var(--accent);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transition:transform .15s ease,opacity .2s;
+  mix-blend-mode:multiply;
+}
+.cursor-ring{
+  position:fixed;
+  width:32px;height:32px;
+  border:1.5px solid rgba(26,86,219,.5);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9998;
+  transition:transform .4s ease,width .25s,height .25s,border-color .25s;
 }
 
 
-.skill-mf .progress {
-  /* background-color: #cde1f8; */
-  margin: .5rem 0 1.2rem 0;
-  border-radius: 0;
-  height: .7rem;
+
+/* ── COUNTER ANIMATION ── */
+.count-up{display:inline-block}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}
+  .about-sticky{position:static}
+  .hero-stats{flex-wrap:wrap;gap:20px}
+  .hero-stat{border-right:none;padding-right:0;margin-right:0}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  section{padding:60px 5%}
+  #hero{padding:calc(var(--nav-h) + 20px) 5% 60px}
 }
 
-.skill-mf .progress .progress-bar {
-  height: .7rem;
-  background-color: #ffbd39;
+/* ── PROGRESS BARS ── */
+.skill-bar-section{margin-top:52px}
+.skill-bar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px}
+.skill-bar-item{margin-bottom:6px}
+.skill-bar-header{display:flex;justify-content:space-between;margin-bottom:6px;font-size:13px;font-weight:500;color:var(--ink-soft)}
+.skill-bar-track{height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+.skill-bar-fill{
+  height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:100px;width:0;
+  transition:width 1.2s cubic-bezier(.4,0,.2,1);
 }
 
-
-/* Animation styles */
-#typing-animation {
-  position: relative;
-  font-size: 30px;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  overflow: hidden;
-  white-space: nowrap;
-  animation: typing 3s steps(20, end) infinite;
+@media(max-width:600px){
+  .skill-bar-grid{grid-template-columns:1fr}
 }
-
-#typing-animation:before {
-  content: "";
-  /* position: absolute; */
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 100%;
-  background-color: #ccc;
-  animation: typing-cursor 0.5s ease-in-out infinite;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes typing-cursor {
-  from {
-    width: 5px;
-  }
-  to {
-    width: 0;
-  }
-}
-
-
-/* project image zoom effect */
-
-.zoom-effect {
-  overflow: hidden;
-  transition: transform 0.3s ease-out;
-}
-
-.zoom-effect:hover {
-  transform: scale(1.1);
-}
-
-
-
 </style>
+</head>
+<body>
 
+<!-- Custom cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-  </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-	  
-	  
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
-	    <div class="container">
-	      <a class="navbar-brand" href="index.html">Suraj Jagtap</a>
-	      <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-	        <span class="oi oi-menu"></span> Menu
-	      </button>
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#hero">Suraj<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-	      <div class="collapse navbar-collapse" id="ftco-nav">
-	        <ul class="navbar-nav nav ml-auto">
-	          <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
-	          <li class="nav-item"><a href="#about-section" class="nav-link"><span>About</span></a></li>
-	          <li class="nav-item"><a href="#resume-section" class="nav-link"><span>Resume</span></a></li>
-	          <li class="nav-item"><a href="#project-section" class="nav-link"><span>Projects</span></a></li>
-	          <li class="nav-item"><a href="#contact-section" class="nav-link"><span>Contact</span></a></li>
-	        </ul>
-	      </div>
-	    </div>
-	  </nav>
-	  <section id="home-section" class="hero">
-		<div class="home-slider owl-carousel">
-		  <div class="slider-item">
-			<div class="overlay"></div>
-			<div class="container">
-			  <div class="row d-md-flex no-gutters slider-text align-items-end justify-content-end" data-scrollax-parent="true">
-				<div class="one-third js-fullheight order-md-last img" style="background-image: url('https://raw.githubusercontent.com/Suraj149696/Suraj-Data-Analyst/main/images/1734022817086-removebg.png');">
-  <div class="overlay"></div>
-</div>
-
-				  
-				  
-				  
-				  
-				  
-	  
-				  
-		          <div class="one-forth d-flex  align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
-		          	<div class="text">
-		          		<span class="subheading">Hello!</span>
-			            <h1 class="mb-4 mt-3">I'm <span>Suraj Jagtap</span></h1>
-
-						<!-- Element to contain animated typing -->
-						<span id="typing-animation"></span>
-
-						<script>
-
-						// Initialize the typing animation
-						const typingAnimationElement = document.getElementById('typing-animation');
-
-						// Create an array of typing text
-						const typingTexts = [
-						'A Data Analyst ',
-						];
-
-						// Create a function to display the typing animation for a given text
-						function playTypingAnimation(text) {
-						// Loop through each character and add it to the element
-						for (let i = 0; i < text.length; i++) {
-							setTimeout(() => {
-							typingAnimationElement.textContent += text[i];
-							}, i * 200); // Increase the delay to slow down the typing animation
-						}
-
-						// Once the animation is complete, reset the text and start over
-						setTimeout(() => {
-							typingAnimationElement.textContent = '';
-							playTypingAnimation(typingTexts[(typingTexts.indexOf(text) + 1) % typingTexts.length]);
-						}, text.length * 200);
-						}
-
-						// Start the typing animation loop
-						playTypingAnimation(typingTexts[0]);
-
-						</script>
-
-						<br>
-						<br>
-			        
-						<!-- <h2 class="d-flex" style="margin-bottom: 0">With over 5 years of experience</h2> -->
-						<!-- <br> -->
-						<p>
-							<a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" class="btn btn-primary py-3 px-4">LinkedIn</a>
-							<a href="https://github.com/Suraj149696" class="btn btn-white btn-outline-white py-3 px-4">My works</a>
-						  </p>
-						  <p class="mt-3 text-white">
-							Welcome to my portfolio website! 
-						  </p>
-				  
-		            </div>
-		          </div>
-	        	</div>
-	        </div>
-	      </div>
-		</div>
-    </section>
-
-
-	<section class="ftco-about img ftco-section ftco-no-pb" id="about-section">
-		<div class="container">
-		  <div class="row d-flex align-items-center">
-			<!-- Title -->
-			<div class="col-12 text-center mb-4">
-			  <h2 class="font-size: 35px; font-weight: bold;">About Me</h2>
-			</div>
-			<!-- Left Column: Image -->
-			<div class="col-md-6 col-lg-5 d-flex justify-content-center mb-4 mb-md-0">
-			  <img src="https://raw.githubusercontent.com/Suraj215151/profile-pic/main/image.jpg" alt="Suraj Jagtap" 
-				   class="img-fluid rounded-circle shadow-lg" style="max-width: 250px;">
-			</div>
-			<!-- Right Column: Text -->
-			<div class="col-md-6 col-lg-7">
-			  <p class="fs-5">
-				I'm a recent postgraduate with a Master's degree in Applied Statistics with Data Science from MIT ADT University, Pune, boasting a strong foundation in data analysis and statistical modeling. My proficiency spans across Python, R, Power BI, and Tableau, with practical experience gained through impactful internships and projects. I am dedicated to leveraging my skills to drive data-driven decision-making and contribute effectively as a Data Analyst.
-			  </p>
-			  <p class="fs-5">
-				Explore my portfolio to discover detailed project pages showcasing my work. Feel free to download my resume and portfolio using the buttons below. Let's connect here, on LinkedIn, or GitHub, and I'm always excited to connect with new people.
-			  </p>
-			  <div class="mt-4">
-				<a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" class="btn btn-primary py-2 px-3">LinkedIn</a>
-				<a href="https://github.com/Suraj149696" class="btn btn-outline-primary py-2 px-3">GitHub</a>
-			  </div>
-			</div>
-		  </div>
-		</div>
-	  </section>
-	  
-
-	  
-	<!-- Tool Set Section -->
-<section id="toolset" class="toolset-section">
-	<div class="container">
-	  <div class="row">
-		<div class="col-md-12">
-		  <h2 style="text-align: left; font-size: 35px; font-weight: bold;">My Tool Set :</h2>
-		</div>
-	  </div>
-	  <div class="row">
-		<div class="col-md-4">
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Python.png" alt="Python">
-			<span>Python</span>
-		  </div>
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/R%20Software.png" alt="R Software">
-			<span>R Software</span>
-		  </div>
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/SQL.jpg" alt="SQL">
-			<span>SQL</span>
-		  </div>
-		</div>
-		<div class="col-md-4">
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/excel.png" alt="Excel">
-			<span>Excel</span>
-		  </div>
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Power%20BI.png" alt="Power BI">
-			<span>Power BI</span>
-		  </div>
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Tableau.png" alt="Tableau">
-			<span>Tableau</span>
-		  </div>
-		</div>
-		<div class="col-md-4">
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Seaborn.png" alt="Seaborn">
-			<span>Seaborn</span>
-		  </div>
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Pandas.png" alt="Pandas">
-			<span>Pandas</span>
-		  </div>
-		  <div class="tool">
-			<img src="https://raw.githubusercontent.com/Suraj215151/tool/main/Sklearn.jpeg" alt="Sklearn">
-			<span>Sklearn</span>
-		  </div>
-		</div>
-	  </div>
-	</div>
-  </section>
-  
-  <!-- Add the following CSS to style the Tool Set Section -->
-  <style>
-	 .toolset-section {
-    margin-top: 4cm; /* Adds 2 cm space above the Tool Set section */
-  }
-	.toolset-section h2 {
-	  font-size: 1em;
-	  margin-bottom: 40px;
-	  text-align: center;
-	  margin-left: 3cm;
-	}
-  
-	.tool {
-	  text-align: center;
-	  margin-bottom: 30px;
-	}
-  
-	.tool img {
-	  max-width: 70px; /* Resize the images */
-	  height: auto;
-	  margin-bottom: 10px;
-	}
-  
-	.tool span {
-	  display: block;
-	  font-size: 1em;
-	  font-weight: bold;
-	  color: #f2eded;
-	}
-  </style>
-  
-<!-- My Skill Set Section -->
-<section id="skillset" class="skillset-section mt-5" style="padding-left: 4cm;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 style="text-align: left; font-size: 28px; font-weight: bold;">My Skill Set :</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <ul class="skill-list" style="list-style: none; padding: 0; font-size: 20px; ">
-                    <li>Data Cleaning and Preprocessing</li>
-                    <li>Data Extraction and Manipulation</li>
-                    <li>Data Reporting and Analysis</li>
-                    <li>Data Visualization</li>
-                    <li>Statistical Modeling</li>
-                    <li>Storytelling with Data</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="skill-list" style="list-style: none; padding: 0; font-size: 20px;">
-                    <li>Statistical Analysis</li>
-                    <li>Time Series Analysis</li>
-                    <li>Machine Learning</li>
-                    <li>Deep Learning</li>
-                    <li>Natural Language Processing</li>
-                    <li>Regression Analysis</li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="skill-list" style="list-style: none; padding: 0; font-size: 20px;">
-                    <li>Sentiment Analysis</li>
-                    <li>Clustering</li>
-                    <li>Big Data Analysis</li>
-                    <li>A/B Testing</li>
-                    <li>Web Scraping, ETL</li>
-                    <li>Dashboards</li>
-                </ul>
-            </div>
-        </div>
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Open to opportunities · Pune, India
     </div>
+    <h1 class="hero-name">
+      Data<br><em>Analyst.</em>
+    </h1>
+    <p class="hero-tagline">
+      <strong>Suraj Jagtap</strong> — Data Analyst | ETL & Pipeline Engineer | Business Intelligence · BI Developer<br>
+      Turning raw data into insights, dashboards, and decisions..
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="stat-num accent">2 yrs</div>
+        <div class="stat-label">Experience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">  30+</div>
+        <div class="stat-label">Dashboards</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num">95%+</div>
+        <div class="stat-label">Data Accuracy Achieved</div>
+      </div>
+      <div class="hero-stat">
+        <div class="stat-num accent">40%</div>
+        <div class="stat-label">Pipeline Efficiency</div>
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank" class="btn-primary">
+        <i class="fab fa-linkedin-in"></i> LinkedIn Profile
+      </a>
+      <a href="https://github.com/Suraj149696" target="_blank" class="btn-ghost">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+      <a href="https://drive.google.com/file/d/1abn3Tqur_SOhmR1vv-kibxZ0h629STLd/view?usp=drive_link" target="_blank" class="btn-ghost">
+        <i class="fas fa-download"></i> Resume
+      </a>
+    </div>
+  </div>
 </section>
 
- 
-					
-
-
-
-
-	
-	  <section class="ftco-section ftco-no-pb" id="resume-section">
-		<div class="container">
-		  <div class="row justify-content-center pb-5">
-			<div class="col-md-10 heading-section text-center ftco-animate">
-			  <h1 class="big big-2">Resume</h1>
-			  <h2 class="mb-4">Resume</h2>
-			  <p>Aspiring Data Analyst with a strong foundation in statistical analysis, data visualization, and machine learning. Skilled in leveraging data-driven insights to solve complex problems and support informed decision-making. Eager to contribute and grow in a dynamic analytical environment.</p>
-			  <!-- Add button for opening resume -->
-			  <div class="mt-4">
-				<a href="https://drive.google.com/file/d/1abn3Tqur_SOhmR1vv-kibxZ0h629STLd/view?usp=drive_link" 
-				   target="_blank" class="btn btn-primary py-3 px-4">View Resume</a>
-			  </div>
-			</div>
-		  </div>
-		
-	  
-	  
-<!-- Experience -->
-		<div class="row">
-			<h1 class="big-4">Experience</h1>
-			<div class="underline"></div>
-		</div>
-		<br>
-		
-		<div class="row">
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">Apr 2024– May 2024</span>
-						<h2>Data Analyst Intern</h2>
-						<span class="position">Cognifyz Technology</span>
-						<p class="mt-4"> 
-							<ul>
-								<li>Applied advanced data cleaning and preparation techniques to ensure data accuracy, using Pandas, Matplotlib, and Seaborn for analysis and visualization.</li>
-								<li>Identified key patterns, trends, and actionable insights to support data-driven decision-making and uncover valuable trends from datasets.</li>
-								<li>Enhanced ability to effectively communicate findings through clear, visually appealing, and impactful visualizations, enabling stakeholders to easily understand key insights and make informed decisions.</li>
-							</ul>
-						</p>
-					</div>
-
-				</div>
-
-
-				<div class="col-md-6">
-					<div class="resume-wrap ftco-animate">
-						<span class="date">Feb 2024– March 2024</span>
-						<h2>Data Analyst Intern</h2>
-						<span class="position">Oasis Infobyte</span>
-						<p class="mt-4"> 
-							<ul>
-								<li>Conducted data visualization on sales data, uncovering key insights that enhanced sales strategies and supported informed decision-making.</li>
-								<li>Designed a sentiment classification model with NLP and machine learning, enhancing performance through feature engineering.</li>
-								<li>Implemented a fraud detection system utilizing Logistic Regression, achieving an impressive accuracy of 97% through effective real-time
-									monitoring and anomaly detection.</li>
-							</ul>
-						</p>
-					</div>
-
-				</div>
-
-			</div>
-		<br>
-		<br>
-
-	
-<!-- Education -->
-		<div class="row">
-			<h1 class="big-4">Education</h1>
-			<div class="underline"></div>
-		</div>
-		<br>
-		
-			<div class="row">
-    			<div class="col-md-6">
-    				<div class="resume-wrap ftco-animate">
-    					<span class="date">2022-2024</span>
-    					<h2>Master’s in Applied Statistics with Data Science</h2>
-    					<span class="position">MIT ADT University, Pune</span>
-    					<p class="mt-4">Grade: First class .</p>
-    				</div>
-    			</div>
-
-    			<div class="col-md-6">
-    				<div class="resume-wrap ftco-animate">
-    					<span class="date">2019-2022</span>
-    					<h2>Bachelor’s in Statistics</h2>
-    					<span class="position">Tuljaram Chaturchand College, Baramati</span>
-    					<p class="mt-4">Grade: First class .</p>
-    				</div>
-				</div>
-    		</div>
-    	</div>
-    </section>
-
-  <!--Project --> 
-
-    <section class="ftco-section" id="project-section">
-      <div class="container">
-        <div class="row justify-content-center mb-5 pb-5">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h1 class="big big-2">Projects</h1>
-            <h2 class="mb-4">Projects</h2>
-            <p>Below are the sample Data Analytics projects on SQL, Python, Power BI & ML.</p>
-          </div>
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-eyebrow reveal">Who I Am</div>
+  <div class="about-grid">
+    <div class="about-sticky reveal-left">
+      <div class="profile-card">
+        <div class="avatar-wrap">
+          <div class="avatar-ring"></div>
+          <img src="https://raw.githubusercontent.com/Suraj215151/profile-pic/main/image.jpg" alt="Suraj Jagtap" class="profile-img"/>
         </div>
-        <div class="row d-flex">
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="https://suraj149696.github.io/Suraj-Data-Analyst/capgemini_project.html" class="block-20 zoom-effect" style="background-image: url('https://raw.githubusercontent.com/Suraj215151/project/main/Capgemini.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-
-                <h3 class="heading"><a href="https://suraj149696.github.io/Suraj-Data-Analyst/capgemini_project.html">A Comprehensive Study of Capgemini Employee Reviews</a></h3>
-                <p>Analyzed Capgemini employee reviews to uncover satisfaction trends, identify key influencing factors, and develop an NLP-based recommendation system. Created a multiclass sentiment classification model to enhance organizational strategies.</p>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry justify-content-end">
-              <a href="https://suraj149696.github.io/Suraj-Data-Analyst/weather_project.html" class="block-20 zoom-effect" style="background-image: url('https://raw.githubusercontent.com/Suraj215151/project/main/pune.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-
-                <h3 class="heading"><a href="https://suraj149696.github.io/Suraj-Data-Analyst/weather_project.html">Time Series and Machine Learning Approach for Weather Forecasting</a></h3>
-                <p>Analyzed Pune’s weather data using time series and machine learning techniques to forecast temperature, capturing trends and seasonality. Compared different models to identify the most accurate approach for temperature prediction.</p>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="col-md-4 d-flex ftco-animate">
-          	<div class="blog-entry">
-              <a href="https://suraj149696.github.io/Suraj-Data-Analyst/HR_Analytics_Dashboard.html" class="block-20 zoom-effect" style="background-image: url('images/proj_3.jpg');">
-              </a>
-              <div class="text mt-3 float-right d-block">
-
-                <h3 class="heading"><a href="https://suraj149696.github.io/Suraj-Data-Analyst/HR_Analytics_Dashboard.html">HR Analytics Dashboard for Employee Attrition Analysis</a></h3>
-                <p>Developed an HR Analytics Dashboard to improve employee retention by addressing attrition rates. Leveraged data cleaning, transformation, and Power BI visualizations to identify key factors influencing retention and enhance HR strategies.</p>
-              </div>
-            </div>
-          </div>
+        <div class="profile-name">Suraj Jagtap</div>
+        <div class="profile-role">Data Analyst</div>
+        <div class="profile-location"><i class="fas fa-map-marker-alt"></i> Pune, Maharashtra</div>
+        <div class="badge-row">
+          <span class="badge">Python</span>
+          <span class="badge">SQL</span>
+          <span class="badge">Power BI</span>
+          <span class="badge">ETL</span>
+          <span class="badge">MongoDB</span>
         </div>
-	<br>
-		<!-- added justify-content-center to center align the last two projects -->
-		<div class="row d-flex justify-content-center">  
-			<div class="col-md-4 d-flex ftco-animate">
-				<div class="blog-entry justify-content-end">
-		
-
-
-			  </div>
-			</div>
-		 </div>
-	  </div>
-    </section>
-
-
-
-
-
-
-	
-	  <div class="ftco-section ftco-hireme img margin-top" style="background-image: url(images/bg_1.jpg)">
-			<!-- <div class="container"> -->
-				<div class="row justify-content-center">
-					<div class="col-md-7 ftco-animate text-center">
-						<h2>More projects on<span> Github  </span> </h2>
-						<div class="heading"> <h4> I love to solve business problems &amp; uncover hidden data stories </h4>
-						<br>
-						<p><a href="https://github.com/Suraj149696" class="btn btn-primary py-3 px-5" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-
-						</div>
-					</div>
-				</div>
-			<!-- </div> -->
-		</div>
-	</section>
-
-
-
-    <section class="ftco-section contact-section ftco-no-pb" id="contact-section">
-      <div class="container">
-      	<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-            <h1 class="big big-2">Contact</h1>
-            <h2 class="mb-4">Contact Me</h2>
-            <p>Below are the details to reach out to me!</p>
-          </div>
+        <div class="profile-socials">
+          <a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank" class="social-btn li">
+            <i class="fab fa-linkedin-in"></i> LinkedIn
+          </a>
+          <a href="https://github.com/Suraj149696" target="_blank" class="social-btn gh">
+            <i class="fab fa-github"></i> GitHub
+          </a>
         </div>
-
-        <div class="row d-flex contact-info mb-5">
-          <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-          	<div class="align-self-stretch box p-4 text-center">
-          		<div class="icon d-flex align-items-center justify-content-center">
-          			<span class="icon-map-signs"></span>
-          		</div>
-          		<h3 class="mb-4">Address</h3>
-	            <p>Pune, Maharashtra, India</p>
-	          </div>
-          </div>
-		  <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-			<div class="align-self-stretch box p-4 text-center">
-				<div class="icon d-flex align-items-center justify-content-center">
-					<a href="tel://+917028067040">
-						<span class="icon-phone2"></span>
-					</a>
-				</div>
-				<h3 class="mb-4">Contact Number</h3>
-				<p><a href="tel://+917028067040"> +91 7028067040</a></p>
-			</div>
-		</div>
-		<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-			<div class="align-self-stretch box p-4 text-center">
-				<div class="icon d-flex align-items-center justify-content-center">
-					<a href="mailto:suraj149696@gmail.com">
-						<span class="icon-paper-plane"></span>
-					</a>
-				</div>
-				<h3 class="mb-4">Email Address</h3>
-				<p><a href="mailto:suraj149696@gmail.com">Suraj@gmail.com</a></p>
-			</div>
-		</div>
-		<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-			<div class="align-self-stretch box p-4 text-center">
-				<div class="icon d-flex align-items-center justify-content-center">
-					<a href="https://drive.google.com/file/d/1abn3Tqur_SOhmR1vv-kibxZ0h629STLd/view?usp=drive_link" target="_blank" rel="noopener noreferrer">
-						<span class="icon-globe"></span>
-					</a>
-				</div>
-				<h3 class="mb-4">Download Resume</h3>
-				<p><a href="https://drive.google.com/file/d/1abn3Tqur_SOhmR1vv-kibxZ0h629STLd/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Resume Link</a></p>
-			</div>                
-		</div>
-		
-
-		  <div class="container">
-			<br>
-			<br>
-			<div class="row justify-content-center">
-				<div class="col-md-7 ftco-animate text-center">
-					<h2>Have a<span> Question?  </span> <a href="https://suraj149696.github.io/Suraj-Data-Analyst/contact.html" class="btn btn-primary py-3 px-5">Click Here</a> </h2>
-				</div>
-			</div>
-				<br>
-					<ul class="ftco-footer-social list-unstyled d-flex justify-content-center align-items-center mb-0">
-					  <li class="ftco-animate normal-txt">Find me on  </li>
-					  <li class="ftco-animate"><a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/"><span class="icon-linkedin"></span></a></li>  
-				      <li class="ftco-animate"><a href="https://www.instagram.com/suraj_2026__/"><span class="icon-instagram"></span></a></li>
-					</ul>
-				<br>
-		   </div>
-   </div>
- </section>
-
-
- 
-	
-    <footer class="ftco-footer ftco-section">
-		<div class="container">
-		  <div class="row">
-			<div class="col-md-12 text-center">
-  
-			</div>
-		  </div>
-		</div>
-	  </footer>
-
-
-	  <!-- Thank You Section -->
-<section id="thank-you" class="thank-you-section bg-dark text-light py-5">
-    <div class="container text-center">
-        <h2 class="mb-4" style="font-size: 2.5rem;">Thank You</h2>
-        <p style="font-size: 1.2rem;">Thank you for visiting my portfolio. Feel free to connect !!!</p>
+      </div>
     </div>
+    <div class="about-text reveal-right">
+      <div class="section-title">Turning Complexity Into<br><span>Clarity Through Data</span> </div>
+      <p>I'm a Data Analyst with 2 years of experience transforming complex data into actionable business insights. At <strong>CloudLead Technologies</strong> in Pune, where work with Python, SQL, MongoDB, and Power BI to analyze large datasets, build scalable ETL/ELT pipelines, and deliver analytics solutions that support data-driven decision-making.</p>
+      <p>My edge is being comfortable at every layer of the data stack — from raw ingestion and transformation, through exploratory analysis and statistical modelling, all the way to executive-level dashboards in Power BI. I don't just build pipelines; I make sure the output actually answers a business question.</p>
+      <div class="about-quote">
+        I reduced ETL pipeline processing time by 30% at CloudLead by optimising data models and query structures — improving SLA reliability for downstream analytics.
+      </div>
+      <p>I hold an M.Sc. in Applied Statistics with Data Science from MIT ADT University, Pune, giving me a rigorous foundation in statistical modelling, time series, and machine learning — skills I apply daily to move beyond vanity dashboards into predictive, prescriptive analytics.</p>
+      <p>Currently seeking roles in <strong>Data Analytics, Business Intelligence, MIS, Power BI Development,</strong> or <strong>Supply Chain Analytics</strong> in Pune or remote.</p>
+    </div>
+  </div>
 </section>
 
-<!-- CSS for Thank You Section -->
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-eyebrow reveal">Capabilities</div>
+  <div class="section-title reveal delay-1">Technical <span>Skill Set</span></div>
+  <div class="skills-grid">
+    <div class="skill-card reveal delay-1">
+      <div class="skill-icon"><i class="fab fa-python"></i></div>
+      <div class="skill-heading">Programming & Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span><span class="skill-tag">SQL</span>
+        <span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">Pandas</span><span class="skill-tag">NumPy</span>
+        <span class="skill-tag">R</span>
+      </div>
+    </div>
+    <div class="skill-card reveal delay-2">
+      <div class="skill-icon"><i class="fas fa-chart-bar"></i></div>
+      <div class="skill-heading">Business Intelligence & Viz</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span><span class="skill-tag">DAX</span>
+        <span class="skill-tag">Tableau</span><span class="skill-tag">Advanced Excel</span>
+        <span class="skill-tag">Seaborn</span><span class="skill-tag">Matplotlib</span>
+      </div>
+    </div>
+    <div class="skill-card reveal delay-3">
+      <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+      <div class="skill-heading">Data Engineering</div>
+      <div class="skill-tags">
+        <span class="skill-tag">ETL / ELT Pipelines</span>
+        <span class="skill-tag">GitHub Actions CI/CD</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Data Modelling</span>
+        <span class="skill-tag">Web Scraping</span>
+      </div>
+    </div>
+    <div class="skill-card reveal delay-1">
+      <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
+      <div class="skill-heading">Analytics & Statistics</div>
+      <div class="skill-tags">
+        <span class="skill-tag">EDA</span>
+        <span class="skill-tag">Statistical Modelling</span>
+        <span class="skill-tag">Time Series (ARIMA, LSTM)</span>
+        <span class="skill-tag">KPI Reporting</span>
+        <span class="skill-tag">A/B Testing</span>
+      </div>
+    </div>
+    <div class="skill-card reveal delay-2">
+      <div class="skill-icon"><i class="fas fa-brain"></i></div>
+      <div class="skill-heading">Machine Learning</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Regression</span>
+        <span class="skill-tag">Classification</span>
+        <span class="skill-tag">NLP</span>
+        <span class="skill-tag">Deep Learning</span>
+        <span class="skill-tag">Scikit-learn</span>
+        <span class="skill-tag">TensorFlow</span>
+      </div>
+    </div>
+    <div class="skill-card reveal delay-3">
+      <div class="skill-icon"><i class="fas fa-boxes"></i></div>
+      <div class="skill-heading">Supply Chain Analytics</div>
+      <div class="skill-tags">
+        <span class="skill-tag">ABC Analysis</span>
+        <span class="skill-tag">Pareto Analysis</span>
+        <span class="skill-tag">Inventory Turnover</span>
+        <span class="skill-tag">Vendor Analysis</span>
+        <span class="skill-tag">Demand Forecasting</span>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- Add Tabler Icons (if not already in your project) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
 <style>
-    .thank-you-section {
-        margin-top: cm; /* Adds space above the section */
-        background-color: #343a40; /* Dark background */
-        color: #f8f9fa; /* Light text */
-        padding: 50px 0; /* Spacing for top and bottom */
-    }
-
-    .thank-you-section h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
-
-    .thank-you-section p {
-        font-size: 1.2rem;
-        margin-bottom: 0;
-    }
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+.skill-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 14px;
+  padding: 24px 14px 20px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  transition: border-color 0.25s, transform 0.25s;
+  animation: fadeUp 0.5s ease both;
+}
+.skill-card:hover { border-color: #aaa; transform: translateY(-4px); }
+.skill-card:nth-child(1){animation-delay:.05s} .skill-card:nth-child(2){animation-delay:.10s}
+.skill-card:nth-child(3){animation-delay:.15s} .skill-card:nth-child(4){animation-delay:.20s}
+.skill-card:nth-child(5){animation-delay:.25s} .skill-card:nth-child(6){animation-delay:.30s}
+.skill-card:nth-child(7){animation-delay:.35s} .skill-card:nth-child(8){animation-delay:.40s}
+.skill-card:nth-child(9){animation-delay:.45s} .skill-card:nth-child(10){animation-delay:.50s}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.icon-wrap {
+  width: 56px; height: 56px; border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px; transition: transform 0.3s;
+}
+.skill-card:hover .icon-wrap { transform: scale(1.12) rotate(-4deg); }
+.ic-python  { background: #EEEDFE; color: #534AB7; }
+.ic-sql     { background: #E6F1FB; color: #185FA5; }
+.ic-excel   { background: #EAF3DE; color: #27500A; }
+.ic-etl     { background: #EAF3DE; color: #3B6D11; }
+.ic-mongo   { background: #E1F5EE; color: #0F6E56; }
+.ic-stats   { background: #E6F1FB; color: #0C447C; }
+.ic-powerbi { background: #FAEEDA; color: #854F0B; }
+.ic-dash    { background: #FBEAF0; color: #72243E; }
+.ic-pred    { background: #EEEDFE; color: #3C3489; }
+.ic-ml      { background: #FAECE7; color: #993C1D; }
+.skill-num  { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; color: #bbb; align-self: flex-start; }
+.skill-name { font-size: 13px; font-weight: 600; text-align: center; line-height: 1.3; }
+.skill-tag  { font-size: 11px; padding: 3px 10px; border-radius: 20px; background: #f5f5f5; color: #777; border: 1px solid #e0e0e0; }
+@keyframes spin   { to { transform: rotate(360deg); } }
+@keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:.5} }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+@keyframes wiggle { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-8deg)} 75%{transform:rotate(8deg)} }
+.skill-card:hover .anim-spin   { animation: spin 1.2s linear infinite; }
+.skill-card:hover .anim-pulse  { animation: pulse 1s ease-in-out infinite; }
+.skill-card:hover .anim-bounce { animation: bounce 0.6s ease infinite; }
+.skill-card:hover .anim-wiggle { animation: wiggle 0.5s ease infinite; }
 </style>
 
+<section class="skill-bar-section reveal">
+  <div class="section-title" style="font-size:22px;margin-bottom:28px">Core <span>Proficiency</span></div>
+  <div class="skill-grid">
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+    <div class="skill-card">
+      <span class="skill-num">01</span>
+      <div class="icon-wrap ic-python"><i class="ti ti-brand-python anim-bounce"></i></div>
+      <div class="skill-name">Python</div>
+      <span class="skill-tag">Data & scripting</span>
+    </div>
 
+    <div class="skill-card">
+      <span class="skill-num">02</span>
+      <div class="icon-wrap ic-sql"><i class="ti ti-database anim-spin"></i></div>
+      <div class="skill-name">SQL / MySQL</div>
+      <span class="skill-tag">Querying</span>
+    </div>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.easing.1.3.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/jquery.magnific-popup.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/scrollax.min.js"></script>
-  
-  <script src="js/main.js"></script>
-    
-  </body>
+    <div class="skill-card">
+      <span class="skill-num">03</span>
+      <div class="icon-wrap ic-excel"><i class="ti ti-table anim-wiggle"></i></div>
+      <div class="skill-name">Advanced Excel</div>
+      <span class="skill-tag">Spreadsheets</span>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-num">04</span>
+      <div class="icon-wrap ic-etl"><i class="ti ti-arrows-exchange anim-spin"></i></div>
+      <div class="skill-name">ETL Pipelines</div>
+      <span class="skill-tag">Data engineering</span>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-num">05</span>
+      <div class="icon-wrap ic-mongo"><i class="ti ti-topology-star anim-pulse"></i></div>
+      <div class="skill-name">MongoDB</div>
+      <span class="skill-tag">NoSQL</span>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-num">06</span>
+      <div class="icon-wrap ic-stats"><i class="ti ti-chart-dots anim-bounce"></i></div>
+      <div class="skill-name">Statistical Analysis</div>
+      <span class="skill-tag">Insights</span>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-num">07</span>
+      <div class="icon-wrap ic-powerbi"><i class="ti ti-chart-bar anim-bounce"></i></div>
+      <div class="skill-name">Power BI / DAX</div>
+      <span class="skill-tag">Visualization</span>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-num">08</span>
+      <div class="icon-wrap ic-dash"><i class="ti ti-layout-dashboard anim-wiggle"></i></div>
+      <div class="skill-name">Dashboard Development</div>
+      <span class="skill-tag">Reporting</span>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-num">09</span>
+      <div class="icon-wrap ic-pred"><i class="ti ti-trending-up anim-bounce"></i></div>
+      <div class="skill-name">Predictive Analytics</div>
+      <span class="skill-tag">Forecasting</span>
+    </div>
+
+    <div class="skill-card">
+      <span class="skill-num">10</span>
+      <div class="icon-wrap ic-ml"><i class="ti ti-brain anim-pulse"></i></div>
+      <div class="skill-name">Machine Learning</div>
+      <span class="skill-tag">AI / Models</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-eyebrow reveal">Career</div>
+  <div class="section-title reveal delay-1">Work <span>Experience</span></div>
+  <div class="timeline">
+
+    <div class="tl-item reveal">
+      <div class="tl-dot"></div>
+      <div class="tl-meta">
+        <span class="tl-date"><i class="far fa-calendar-alt" style="margin-right:5px"></i>Jan 2025 – Present</span>
+        <span class="tl-company"><i class="fas fa-building" style="margin-right:5px"></i>CloudLead Technologies Pvt. Ltd. · Pune</span>
+      </div>
+      <div class="tl-role">Data Analyst <span class="impact-pill"><i class="fas fa-star" style="font-size:10px"></i> Current</span></div>
+      <ul class="tl-list">
+        <li>Built scalable ETL pipelines using Python, SQL, and MongoDB to process large structured and semi-structured data from multiple sources, serving as the backbone for downstream reporting.</li>
+        <li>Optimised data models and query performance, improving overall pipeline processing efficiency by <strong>40%</strong> and ensuring reliable SLA delivery for analytics consumers.</li>
+        <li>Owned end-to-end data flow — from source ingestion and transformation to validated, analytics-ready datasets for the BI layer.</li>
+      </ul>
+    </div>
+
+    <div class="tl-item reveal delay-2">
+      <div class="tl-dot"></div>
+      <div class="tl-meta">
+        <span class="tl-date"><i class="far fa-calendar-alt" style="margin-right:5px"></i>Jul 2024 – Dec 2024</span>
+        <span class="tl-company"><i class="fas fa-building" style="margin-right:5px"></i>CloudLead Technologies Pvt. Ltd. · Pune</span>
+      </div>
+      <div class="tl-role">Data Analyst Intern</div>
+      <ul class="tl-list">
+        <li>Performed data cleaning, transformation, and exploratory data analysis on structured and semi-structured datasets using Python and MongoDB to support analytics workflows.</li>
+        <li>Developed Power BI dashboards and automated Excel reports to track KPIs, enabling faster, evidence-based business decisions.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-eyebrow reveal">Portfolio</div>
+  <div class="section-title reveal delay-1">Featured <span>Projects</span></div>
+  <div class="projects-grid">
+
+    <div class="proj-card reveal delay-1">
+      <div class="proj-top">
+        <div class="proj-icon-wrap"><i class="fas fa-boxes" style="color:#7aaafb"></i></div>
+        <div class="proj-links">
+          <a href="https://suraj149696.github.io/Suraj-Data-Analyst/inventory-sales-analytics.html" 
+          target="_blank" class="proj-link">
+            <i class="fas fa-external-link-alt"></i> Live
+          </a>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">Inventory, Procurement & Sales BI Platform</div>
+        <p class="proj-desc">End-to-end retail supply chain analytics platform. Processed millions of records across 6 datasets to surface revenue, procurement, and inventory intelligence for a multi-store retail operation.</p>
+        <div class="proj-metrics">
+          <div class="metric"><div class="metric-val">15.6M+</div><div class="metric-lbl">Records</div></div>
+          <div class="metric"><div class="metric-val">$452M</div><div class="metric-lbl">Revenue</div></div>
+          <div class="metric"><div class="metric-val">80</div><div class="metric-lbl">Stores</div></div>
+          <div class="metric"><div class="metric-val">5</div><div class="metric-lbl">Dashboards</div></div>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">SQL</span>
+          <span class="proj-tag">Power BI</span><span class="proj-tag">EDA</span>
+          <span class="proj-tag">Supply Chain</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card reveal delay-2">
+      <div class="proj-top">
+        <div class="proj-icon-wrap"><i class="fas fa-cloud-sun-rain" style="color:#7aaafb"></i></div>
+        <div class="proj-links">
+          <a href="https://github.com/Suraj149696/weather-Forecasting-pipeline-" target="_blank" class="proj-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">Weather Forecasting Pipeline (LSTM + CI/CD)</div>
+        <p class="proj-desc">Automated ML pipeline collecting real-time weather data via API, engineering time-series features, training an LSTM model, and generating 24-hour temperature forecasts — fully automated via GitHub Actions CI/CD.</p>
+        <div class="proj-metrics">
+          <div class="metric"><div class="metric-val">24hr</div><div class="metric-lbl">Forecast</div></div>
+          <div class="metric"><div class="metric-val">Daily</div><div class="metric-lbl">Auto-runs</div></div>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">LSTM</span>
+          <span class="proj-tag">TensorFlow</span><span class="proj-tag">CI/CD</span>
+          <span class="proj-tag">GitHub Actions</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card reveal delay-3">
+      <div class="proj-top">
+        <div class="proj-icon-wrap"><i class="fas fa-users" style="color:#7aaafb"></i></div>
+        <div class="proj-links">
+          <a href="https://suraj149696.github.io/Suraj-Data-Analyst/HR_Analytics_Dashboard.html" target="_blank" class="proj-link">
+            <i class="fas fa-external-link-alt"></i> Live
+          </a>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">HR Analytics — Employee Attrition Dashboard</div>
+        <p class="proj-desc">Interactive Power BI dashboards analysing employee attrition trends, workforce KPIs, and department-level performance metrics. Generated insights on key attrition drivers to support retention strategy.</p>
+        <div class="proj-tags">
+          <span class="proj-tag">Power BI</span><span class="proj-tag">DAX</span>
+          <span class="proj-tag">KPI Reporting</span><span class="proj-tag">HR Analytics</span>
+          <span class="proj-tag">Data Storytelling</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card reveal delay-4">
+      <div class="proj-top">
+        <div class="proj-icon-wrap"><i class="fas fa-comment-dots" style="color:#7aaafb"></i></div>
+        <div class="proj-links">
+          <a href="https://suraj149696.github.io/Suraj-Data-Analyst/capgemini_project.html" target="_blank" class="proj-link">
+            <i class="fas fa-external-link-alt"></i> Live
+          </a>
+        </div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-title">Employee Review Sentiment Analysis (NLP)</div>
+        <p class="proj-desc">Analysed 25,000+ employee reviews to uncover satisfaction trends using NLP and text mining. Built a multi-class sentiment classification model and recommendation system for HR strategy.</p>
+        <div class="proj-metrics">
+          <div class="metric"><div class="metric-val">25K+</div><div class="metric-lbl">Reviews</div></div>
+          <div class="metric"><div class="metric-val">95%</div><div class="metric-lbl">Accuracy</div></div>
+        </div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">NLP</span>
+          <span class="proj-tag">Scikit-learn</span><span class="proj-tag">Sentiment Analysis</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-eyebrow reveal">Academic Background</div>
+  <div class="section-title reveal delay-1">Education & <span>Certifications</span></div>
+
+  <div class="edu-grid">
+    <div class="edu-card reveal delay-1">
+      <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+      <div class="edu-degree">M.Sc. Applied Statistics with Data Science</div>
+      <div class="edu-uni">MIT ADT University, Pune</div>
+      <div class="edu-year"><i class="far fa-calendar"></i> 2022 – 2024 · First Class</div>
+    </div>
+    <div class="edu-card reveal delay-2">
+      <div class="edu-icon"><i class="fas fa-university"></i></div>
+      <div class="edu-degree">B.Sc. Statistics</div>
+      <div class="edu-uni">Tuljaram Chaturchand College, Baramati</div>
+      <div class="edu-year"><i class="far fa-calendar"></i> 2019 – 2022 · First Class</div>
+    </div>
+  </div>
+
+  <div class="cert-grid">
+    <div class="cert-item reveal delay-1">
+      <div class="cert-icon"><i class="fas fa-network-wired"></i></div>
+      <div>
+        <div class="cert-name">Data Analytics Essentials</div>
+        <div class="cert-issuer">Cisco Networking Academy</div>
+      </div>
+    </div>
+    <div class="cert-item reveal delay-2">
+      <div class="cert-icon"><i class="fab fa-python"></i></div>
+      <div>
+        <div class="cert-name">Python for Data Science</div>
+        <div class="cert-issuer">Indian Statistical Institute</div>
+      </div>
+    </div>
+    <div class="cert-item reveal delay-3">
+      <div class="cert-icon"><i class="fab fa-aws"></i></div>
+      <div>
+        <div class="cert-name">AWS for Data Analytics</div>
+        <div class="cert-issuer">LinkedIn Learning</div>
+      </div>
+    </div>
+    <div class="cert-item reveal delay-4">
+      <div class="cert-icon"><i class="fas fa-database"></i></div>
+      <div>
+        <div class="cert-name">SQL for Data Analysis</div>
+        <div class="cert-issuer">LinkedIn Learning</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-eyebrow">Get In Touch</div>
+  <div class="section-title reveal">Let's <span style="color:#7aaafb">Work Together</span></div>
+  <p class="contact-sub reveal delay-1">Open to Data Analyst, Business Analyst, MIS, Power BI Developer & Supply Chain Analytics roles in Pune or remote.</p>
+  <div class="contact-grid">
+    <a href="mailto:suraj149696@gmail.com" class="contact-card reveal delay-1">
+      <div class="contact-card-icon"><i class="fas fa-envelope"></i></div>
+      <div class="contact-card-label">Email</div>
+      <div class="contact-card-val">suraj149696@gmail.com</div>
+    </a>
+    <a href="tel:+917028067040" class="contact-card reveal delay-2">
+      <div class="contact-card-icon"><i class="fas fa-mobile-alt"></i></div>
+      <div class="contact-card-label">Phone</div>
+      <div class="contact-card-val">+91 70280 67040</div>
+    </a>
+    <a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank" class="contact-card reveal delay-3">
+      <div class="contact-card-icon"><i class="fab fa-linkedin"></i></div>
+      <div class="contact-card-label">LinkedIn</div>
+      <div class="contact-card-val">suraj-jagtap-data-analyst</div>
+    </a>
+    <a href="https://github.com/Suraj149696" target="_blank" class="contact-card reveal delay-4">
+      <div class="contact-card-icon"><i class="fab fa-github"></i></div>
+      <div class="contact-card-label">GitHub</div>
+      <div class="contact-card-val">Suraj149696</div>
+    </a>
+  </div>
+  <div class="contact-cta reveal delay-2">
+    <a href="https://drive.google.com/file/d/1abn3Tqur_SOhmR1vv-kibxZ0h629STLd/view?usp=drive_link" target="_blank" class="btn-primary">
+      <i class="fas fa-download"></i> Download Resume
+    </a>
+    <a href="https://www.linkedin.com/in/suraj-jagtap-data-analyst/" target="_blank" class="btn-ghost">
+      <i class="fab fa-linkedin-in"></i> Connect on LinkedIn
+    </a>
+  </div>
+</section>
+
+<footer>
+  <i class="fas fa-code" style="margin-right:6px;color:rgba(255,255,255,.3)"></i>
+  © 2026 Suraj Jagtap · Built to get hired · Pune, Maharashtra
+</footer>
+
+<script>
+/* ── Scroll reveal ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold:.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => observer.observe(el));
+
+/* ── Nav shadow on scroll ── */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+/* ── Floating particles ── */
+const container = document.getElementById('particles');
+const sizes = [3,4,5,6,8];
+for(let i=0;i<18;i++){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const sz = sizes[Math.floor(Math.random()*sizes.length)];
+  p.style.cssText = `
+    width:${sz}px;height:${sz}px;
+    left:${Math.random()*100}%;
+    animation-duration:${8+Math.random()*14}s;
+    animation-delay:${Math.random()*8}s;
+    opacity:${.2+Math.random()*.4};
+  `;
+  container.appendChild(p);
+}
+
+/* ── Skill bars (triggered on section visible) ── */
+const barSection = document.querySelector('.skill-bar-section');
+const barObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      barObs.disconnect();
+    }
+  });
+},{threshold:.2});
+if(barSection) barObs.observe(barSection);
+
+/* ── Custom cursor ── */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx-4+'px'; dot.style.top = my-4+'px';
+});
+(function animate(){
+  rx += (mx-rx)*.12; ry += (my-ry)*.12;
+  ring.style.left = rx-16+'px'; ring.style.top = ry-16+'px';
+  requestAnimationFrame(animate);
+})();
+document.querySelectorAll('a,button,.skill-card,.proj-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.width='44px'; ring.style.height='44px';
+    ring.style.borderColor='rgba(26,86,219,.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.width='32px'; ring.style.height='32px';
+    ring.style.borderColor='rgba(26,86,219,.5)';
+  });
+});
+</script>
+</body>
 </html>
